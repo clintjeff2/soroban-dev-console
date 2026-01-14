@@ -165,8 +165,6 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ## 👥 Maintainer
 
-**[Your Name/GitHub Handle]**
-
 - GitHub: [@Ibinola](https://github.com/Ibinola)
 - Project: [Soroban DevConsole](https://github.com/Ibinola/soroban-dev-console)
 
