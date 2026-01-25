@@ -17,7 +17,6 @@ import {
     SidebarHeader,
 } from "@/components/ui/sidebar"
 
-// Menu items.
 const items = [
     {
         title: "Dashboard",
@@ -36,7 +35,7 @@ const items = [
     },
     {
         title: "Settings",
-        url: "#",
+        url: "/settings",
         icon: Settings,
     },
 ]
@@ -45,7 +44,7 @@ export function AppSidebar() {
     return (
         <Sidebar collapsible="icon" className="border-r border-sidebar-border">
             <SidebarHeader className="flex items-center justify-center py-4">
-                 <span className="font-bold text-lg truncate w-full px-2">DevConsole</span>
+                <span className="font-bold text-lg truncate w-full px-2">DevConsole</span>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>

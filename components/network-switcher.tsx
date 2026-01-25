@@ -1,65 +1,80 @@
-
 // components/network-switcher.tsx
 'use client';
 
-import { AlertTriangle, ChevronDown, Wifi } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
+import { useNetworkStore } from '@/store/useNetworkStore';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { NetworkId, NETWORKS, useNetworkStore } from '@/store/useNetworkStore';
+import { Button } from '@/components/ui/button';
+import { ChevronDown, AlertTriangle, Wifi, Settings } from 'lucide-react';
+import Link from 'next/link';
 
 export function NetworkSwitcher() {
-  const { currentNetwork, setNetwork } = useNetworkStore();
+  const { currentNetwork, setNetwork, getAllNetworks } = useNetworkStore();
 
-  const handleSwitch = (id: NetworkId) => {
-    // Optional: Add a confirmation dialog here if switching to Mainnet
+  const allNetworks = getAllNetworks();
+  const activeNet = allNetworks.find(n => n.id === currentNetwork) || allNetworks[0];
+
+  const handleSwitch = (id: string) => {
     setNetwork(id);
-    // Reloading page is often safer to ensure all stale RPC connections are cleared
-    // window.location.reload();
+    // Reloading page ensures all stale RPC connections (e.g. in hooks) are cleared
+    window.location.reload();
   };
 
-  const getNetworkColor = (id: NetworkId) => {
+  const getNetworkColor = (id: string) => {
+    if (id.includes('custom')) return 'bg-blue-500';
     switch (id) {
-      case 'mainnet':
-        return 'bg-green-500';
-      case 'testnet':
-        return 'bg-orange-500';
-      case 'futurenet':
-        return 'bg-purple-500';
-      default:
-        return 'bg-gray-500';
+      case 'mainnet': return 'bg-green-500';
+      case 'testnet': return 'bg-orange-500';
+      case 'futurenet': return 'bg-purple-500';
+      default: return 'bg-gray-500';
     }
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="min-w-[140px] justify-between gap-2">
+        <Button variant="outline" className="gap-2 min-w-[140px] justify-between">
           <div className="flex items-center gap-2">
-            {currentNetwork === 'mainnet' ? (
+            {activeNet.id === 'mainnet' ? (
               <AlertTriangle className="h-4 w-4 text-yellow-600" />
             ) : (
-              <div className={`h-2 w-2 rounded-full ${getNetworkColor(currentNetwork)}`} />
+              <div className={`h-2 w-2 rounded-full ${getNetworkColor(activeNet.id)}`} />
             )}
-            <span className="hidden font-medium sm:inline-block">{NETWORKS[currentNetwork].name}</span>
-            <span className="font-medium sm:hidden">{NETWORKS[currentNetwork].name.slice(0, 4)}</span>
+            <span className="font-medium hidden sm:inline-block truncate max-w-[100px]">
+              {activeNet.name}
+            </span>
           </div>
           <ChevronDown className="h-4 w-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {Object.values(NETWORKS).map((network) => (
-          <DropdownMenuItem key={network.id} onClick={() => handleSwitch(network.id)} className="cursor-pointer gap-2">
+        {allNetworks.map((network) => (
+          <DropdownMenuItem
+            key={network.id}
+            onClick={() => handleSwitch(network.id)}
+            className="gap-2 cursor-pointer"
+          >
             <div className={`h-2 w-2 rounded-full ${getNetworkColor(network.id)}`} />
-            {network.name}
-            {currentNetwork === network.id && <Wifi className="ml-auto h-3 w-3 opacity-50" />}
+            <span className="truncate max-w-[150px]">{network.name}</span>
+            {currentNetwork === network.id && (
+              <Wifi className="h-3 w-3 ml-auto opacity-50" />
+            )}
           </DropdownMenuItem>
         ))}
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <Link href="/settings" className="cursor-pointer gap-2 flex items-center w-full">
+            <Settings className="h-3 w-3" />
+            Manage Networks
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

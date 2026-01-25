@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface NetworkConfig {
-  id: string; // Changed from strict literal to string to allow custom IDs
+  id: string;
   name: string;
   rpcUrl: string;
   networkPassphrase: string;
