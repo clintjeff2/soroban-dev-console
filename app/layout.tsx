@@ -3,6 +3,8 @@ import "./globals.css";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
+import { Toaster } from "sonner";
+
 
 export const metadata: Metadata = {
     title: "Soroban DevConsole",
@@ -26,6 +28,8 @@ export default function RootLayout({
                         </div>
                     </SidebarInset>
                 </SidebarProvider>
+                <Toaster richColors position="bottom-right" />
+
             </body>
         </html>
     );
