@@ -6,7 +6,7 @@ import {
   xdr,
   Address,
   scValToNative,
-  SCVal,
+  
 } from "@stellar/stellar-sdk";
 import { useNetworkStore } from "@/store/useNetworkStore";
 import { Button } from "@/components/ui/button";
