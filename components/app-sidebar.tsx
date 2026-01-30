@@ -5,6 +5,7 @@ import {
   Settings,
   Search,
   HardDrive,
+  Calculator,
 } from "lucide-react";
 
 import {
@@ -48,8 +49,13 @@ const items = [
   {
     title: "WASM Registry",
     url: "/deploy/wasm",
-    icon: HardDrive, 
-},
+    icon: HardDrive,
+  },
+  {
+    title: "Key Calculator",
+    url: "/tools/ledger-keys",
+    icon: Calculator,
+  },
 ];
 
 export function AppSidebar() {
