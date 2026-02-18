@@ -72,12 +72,12 @@ Seamlessly switch between networks.
 ### Phase 1: Foundation (Current - Wave #1)
 
 - [x] Project initialization
-- [ ] Core dashboard interface
-- [ ] Contract explorer and interaction
-- [ ] Account management
-- [ ] Transaction monitoring
-- [ ] Wallet integration (Freighter & Albedo)
-- [ ] Network switching
+- [x] Core dashboard interface
+- [x] Contract explorer and interaction
+- [x] Account management
+- [x] Transaction monitoring
+- [x] Wallet integration (Freighter & Albedo)
+- [x] Network switching
 
 ---
 
