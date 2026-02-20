@@ -83,7 +83,7 @@ export function ContractUpgradeModal({
         {
           accountId: () => source,
           sequenceNumber: () => "0",
-          incrementSequenceNumber: () => {},
+          incrementSequenceNumber: () => { },
         },
         { fee: "100", networkPassphrase: network.networkPassphrase },
       )
@@ -96,7 +96,7 @@ export function ContractUpgradeModal({
       if (SorobanRpc.Api.isSimulationSuccess(sim)) {
         setSimDetails({
           auth: sim.result?.auth.map((a) => "Authorized") || [], // Simplified auth display
-          cpu: sim.cost?.cpuInsns || "0",
+          cpu: (sim as any).cost?.cpuInsns || "0",
         });
         setStatus("ready");
       } else {
@@ -134,7 +134,7 @@ export function ContractUpgradeModal({
       });
 
       const res = await server.sendTransaction(
-        new TransactionBuilder.fromXDR(
+        TransactionBuilder.fromXDR(
           signedXdr.signedTxXdr,
           network.networkPassphrase,
         ),

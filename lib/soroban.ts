@@ -71,3 +71,28 @@ export async function fetchContractSpec(contractId: string, rpcUrl: string) {
     throw error;
   }
 }
+
+/**
+ * Translates complex Soroban RPC error codes into human-readable messages.
+ */
+export function parseSorobanError(error: any): string {
+  const message = error?.message || String(error);
+
+  if (message.includes('VerificationFailed')) {
+    return 'Contract verification failed. Ensure the WASM file matches the expected interface.';
+  }
+  if (message.includes('ExceededAllowance')) {
+    return 'The operation exceeded the provided token allowance. Try increasing the limit.';
+  }
+  if (message.includes('InvalidAction')) {
+    return 'Invalid Action: The contract logic rejected this call (e.g., failed assertion).';
+  }
+  if (message.includes('ResourceLimitExceeded')) {
+    return 'Resource Limit Exceeded: This transaction requires more CPU or Memory than the network allows.';
+  }
+  if (message.includes('404')) {
+    return 'Resource not found: The contract ID or Account does not exist on this network.';
+  }
+
+  return message;
+}

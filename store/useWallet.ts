@@ -53,8 +53,8 @@ export const useWallet = create<WalletState>()(
           }
 
           // Fallback for some versions of Freighter
-          if (!finalAddress && freighter.getPublicKey) {
-            const pubKeyRes = await freighter.getPublicKey();
+          if (!finalAddress && (freighter as any).getPublicKey) {
+            const pubKeyRes = await (freighter as any).getPublicKey();
             finalAddress =
               typeof pubKeyRes === "object"
                 ? (pubKeyRes as any).publicKey
