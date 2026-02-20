@@ -1,6 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export interface NetworkHealth {
+  status: 'healthy' | 'degraded' | 'offline';
+  latestLedger: number;
+  protocolVersion: number;
+  latencyMs: number;
+  lastCheck: number;
+}
+
 export interface NetworkConfig {
   id: string;
   name: string;
@@ -40,8 +48,10 @@ export const DEFAULT_NETWORKS: Record<string, NetworkConfig> = {
 interface NetworkState {
   currentNetwork: string;
   customNetworks: NetworkConfig[];
+  health: NetworkHealth | null;
 
   setNetwork: (id: string) => void;
+  setHealth: (health: NetworkHealth | null) => void;
   addCustomNetwork: (network: NetworkConfig) => void;
   removeCustomNetwork: (id: string) => void;
 
@@ -55,8 +65,10 @@ export const useNetworkStore = create<NetworkState>()(
     (set, get) => ({
       currentNetwork: "testnet",
       customNetworks: [],
+      health: null,
 
-      setNetwork: (id) => set({ currentNetwork: id }),
+      setNetwork: (id) => set({ currentNetwork: id, health: null }),
+      setHealth: (health) => set({ health }),
 
       addCustomNetwork: (network) =>
         set((state) => ({
@@ -95,6 +107,7 @@ export const useNetworkStore = create<NetworkState>()(
       partialize: (state) => ({
         currentNetwork: state.currentNetwork,
         customNetworks: state.customNetworks,
+        // health is not persisted - it's real-time data
       }),
     },
   ),
