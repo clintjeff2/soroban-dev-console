@@ -23,6 +23,7 @@ import { useSavedCallsStore, SavedCall } from '@/store/useSavedCallsStore';
 import { ArgType, ContractArg, convertToScVal } from '@/lib/soroban-types';
 import { signTransaction } from '@stellar/freighter-api';
 import { SavedCallsSheet } from './saved-calls-sheet';
+import { AbiInputField } from './abi-input-field';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -265,7 +266,7 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
             </Button>
           </div>
 
-          {args.map((arg, idx) => (
+          {args.map((arg) => (
             <div key={arg.id} className="flex items-start gap-2">
               <div className="w-[120px]">
                 <Select
@@ -280,14 +281,15 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
                     <SelectItem value="address">Address</SelectItem>
                     <SelectItem value="i32">i32 (Int)</SelectItem>
                     <SelectItem value="string">String</SelectItem>
+                    <SelectItem value="bool">Bool</SelectItem>
+                    <SelectItem value="vec">Vec (JSON)</SelectItem>
+                    <SelectItem value="map">Map (JSON)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <Input
-                className="flex-1"
-                placeholder="Value..."
-                value={arg.value}
-                onChange={(e) => updateArg(arg.id, 'value', e.target.value)}
+              <AbiInputField
+                arg={arg}
+                onChange={(id, val) => updateArg(id, 'value', val)}
               />
               <Button
                 size="icon"
