@@ -55,7 +55,7 @@ import {
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { fetchContractSpec } from '@/lib/soroban';
+import { fetchContractSpec, parseSorobanError } from '@/lib/soroban';
 import { useAbiStore } from '@/store/useAbiStore';
 
 interface ContractCallFormProps {
@@ -146,8 +146,8 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
         setResultData({
           status: 'success',
           message: 'Simulation successful!',
-          cpuInstructions: sim.cost?.cpuInsns,
-          memoryBytes: sim.cost?.memBytes,
+          cpuInstructions: (sim as any).cost?.cpuInsns,
+          memoryBytes: (sim as any).cost?.memBytes,
           resultXdr: xdrString
         });
         toast.success(`Simulation Success!`);
@@ -160,8 +160,15 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
       }
     } catch (e: any) {
       console.error(e);
-      setResultData({ status: 'error', message: `Error: ${e.message}` });
-      toast.error(`Simulation Error: ${e.message}`);
+      const friendlyError = parseSorobanError(e);
+      setResultData({ status: 'error', message: `Error: ${friendlyError}` });
+      toast.error("Interaction Failed", {
+        description: friendlyError,
+        action: {
+          label: "Copy Info",
+          onClick: () => navigator.clipboard.writeText(JSON.stringify(e, null, 2))
+        }
+      });
     } finally {
       setIsLoading(false);
     }
@@ -217,8 +224,15 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
       toast.success('Transaction sent to network');
     } catch (e: any) {
       console.error(e);
-      setResultData({ status: 'error', message: `Submission Error: ${e.message}` });
-      toast.error(`Submission Error: ${e.message}`);
+      const friendlyError = parseSorobanError(e);
+      setResultData({ status: 'error', message: `Submission Error: ${friendlyError}` });
+      toast.error("Interaction Failed", {
+        description: friendlyError,
+        action: {
+          label: "Copy Info",
+          onClick: () => navigator.clipboard.writeText(JSON.stringify(e, null, 2))
+        }
+      });
     } finally {
       setIsLoading(false);
     }
