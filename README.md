@@ -69,15 +69,25 @@ Seamlessly switch between networks.
 
 ## 🗺️ Roadmap
 
-### Phase 1: Foundation (Current - Wave #1)
+### Phase 1: Foundation (Wave #1 - Completed)
 
 - [x] Project initialization
-- [ ] Core dashboard interface
-- [ ] Contract explorer and interaction
-- [ ] Account management
-- [ ] Transaction monitoring
-- [ ] Wallet integration (Freighter & Albedo)
-- [ ] Network switching
+- [x] Core dashboard interface
+- [x] Contract explorer and interaction
+- [x] Account management
+- [x] Transaction monitoring
+- [x] Wallet integration (Freighter & Albedo)
+- [x] Network switching
+
+### Phase 2: Advanced Capabilities (Current - Wave #2)
+
+- [ ] Dynamic Contract UI Generation from ABI
+- [ ] Support Complex ScVal Types (Vec, Map, Bytes)
+- [ ] Functional Token Actions (Transfer/Mint)
+- [ ] Contract Interface Scratchpad (Code Tab)
+- [ ] Export Transaction History (CSV downloads)
+- [ ] Real-time Network Health Indicator
+- [ ] Next.js Error Boundaries & 404 Pages
 
 ---
 
@@ -94,13 +104,11 @@ Seamlessly switch between networks.
 
 ## 🏗️ Project Status
 
-**Current Status:** 🚧 In Development
+**Current Status:** 🚧 In Development (Wave #2 Active)
 
 This project is participating in **Drips Wave** - a recurring funding cycle for open-source contributions on Stellar/Soroban ecosystem projects.
 
-**Wave #1 Focus:** Building the foundation - core dashboard, wallet integration, contract explorer, and transaction monitoring.
-
----
+## **Wave #2 Focus:** Expanding advanced capabilities—specifically dynamic ABI form generation, complex data types, and improved developer UX tools.
 
 ## 🤝 Contributing
 
