@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { ConnectWalletButton } from "@/components/wallet-connect";
 import { NetworkSwitcher } from "@/components/network-switcher";
 import { ModeToggle } from "@/components/mode-toggle";
+import { NetworkHealth } from "@/components/network-health";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
@@ -47,6 +48,7 @@ export function SiteHeader() {
         {/* Left side - NOW DYNAMIC */}
         <div className="flex items-center gap-2">
           <span className="font-medium">{pageTitle}</span>
+          <NetworkHealth />
         </div>
 
         {/* Right side */}
