@@ -206,6 +206,28 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
     toast.info(`Loaded: ${call.name}`);
   };
 
+  const handleCall = async () => {
+  // 1. Snapshot state BEFORE
+  const preState = await fetchAllContractStorage(contractId);
+
+  try {
+    const tx = await executeContractCall(contractId, fnName, args);
+
+    // 2. Wait a beat for ledger close, then snapshot AFTER
+    setTimeout(async () => {
+      const postState = await fetchAllContractStorage(contractId);
+      const diffs = computeStateDiff(preState, postState);
+
+      // 3. Save to store to trigger UI update
+      recordSnapshot(contractId, postState);
+      setLastDiffs(diffs);
+      toast.success('State diff recorded!');
+    }, 5000);
+  } catch (e) {
+    // handle error
+  }
+};
+
   return (
     <Card className="w-full">
       <CardHeader>
