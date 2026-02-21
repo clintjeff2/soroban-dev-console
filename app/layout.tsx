@@ -5,6 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import { CommandPalette } from "@/components/command-palette";
 
 export const metadata: Metadata = {
     title: "Soroban DevConsole",
@@ -31,6 +32,7 @@ export default function RootLayout({
                             <SiteHeader />
                             <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
                                 {children}
+                                 <CommandPalette />
                             </div>
                         </SidebarInset>
                     </SidebarProvider>
