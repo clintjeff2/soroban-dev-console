@@ -1,10 +1,13 @@
 // lib/soroban.ts
 import { rpc as SorobanRpc, xdr, Address } from "@stellar/stellar-sdk";
+import { xdr } from '@stellar/stellar-sdk';
+
 
 // Default to Testnet for now
 const TESTNET_RPC_URL = "https://soroban-testnet.stellar.org:443";
 
 export const server = new SorobanRpc.Server(TESTNET_RPC_URL);
+
 
 export async function getContractInfo(contractId: string) {
   try {
@@ -69,6 +72,17 @@ export async function fetchContractSpec(contractId: string, rpcUrl: string) {
   } catch (error) {
     console.error("Failed to fetch contract spec:", error);
     throw error;
+  }
+}
+
+export async function parseWasmMetadata(buffer: Buffer): Promise<string[]> {
+  try {
+    const functionNames: string[] = [];
+
+    return functionNames.length > 0 ? functionNames : ['(No public functions found)'];
+  } catch (e) {
+    console.error('WASM Parsing Error:', e);
+    return ['Parsing failed'];
   }
 }
 

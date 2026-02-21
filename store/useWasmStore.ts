@@ -6,6 +6,7 @@ export interface WasmEntry {
   name: string;
   network: string; // 'testnet', etc.
   installedAt: number;
+  functions?: string[];
 }
 
 interface WasmState {
