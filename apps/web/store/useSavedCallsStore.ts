@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { ContractArg } from '@/lib/soroban-types';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { ContractArg } from "@devconsole/soroban-utils";
 
 export interface SavedCall {
   id: string;
@@ -14,7 +14,7 @@ export interface SavedCall {
 
 interface SavedCallsState {
   savedCalls: SavedCall[];
-  saveCall: (call: Omit<SavedCall, 'id' | 'createdAt'>) => void;
+  saveCall: (call: Omit<SavedCall, "id" | "createdAt">) => void;
   removeCall: (id: string) => void;
   getCallsForContract: (contractId: string) => SavedCall[];
 }
@@ -42,7 +42,7 @@ export const useSavedCallsStore = create<SavedCallsState>()(
       },
     }),
     {
-      name: 'soroban-saved-calls',
+      name: "soroban-saved-calls",
     },
   ),
 );

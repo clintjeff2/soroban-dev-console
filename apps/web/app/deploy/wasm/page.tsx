@@ -42,7 +42,7 @@ import {
 } from "@/components/ui/table";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { parseWasmMetadata } from "@/lib/soroban";
+import { parseWasmMetadata } from "@devconsole/soroban-utils";
 
 export default function WasmRegistryPage() {
   const { isConnected, address } = useWallet();
@@ -56,7 +56,7 @@ export default function WasmRegistryPage() {
   const [deployingHash, setDeployingHash] = useState<string | null>(null);
 
   const [previewFunctions, setPreviewFunctions] = useState<string[]>([]);
-  
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selected = e.target.files[0];
@@ -72,7 +72,7 @@ export default function WasmRegistryPage() {
   };
 
 
-  
+
 
   const handleInstall = async () => {
     if (!file || !address || !isConnected) return;
@@ -308,7 +308,7 @@ export default function WasmRegistryPage() {
                 )}
               </TableBody>
             </Table>
-              {/* WASM Preview Card */}
+            {/* WASM Preview Card */}
             {file && (
               <div className="bg-muted/50 space-y-2 rounded-md border p-3">
                 <Label className="text-[10px] font-bold uppercase">WASM Preview</Label>

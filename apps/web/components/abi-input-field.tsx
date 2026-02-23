@@ -1,6 +1,6 @@
 'use client';
 
-import { ContractArg } from '@/lib/soroban-types';
+import { ContractArg } from '@devconsole/soroban-utils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
