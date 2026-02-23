@@ -70,13 +70,68 @@ export async function fetchContractSpec(contractId: string, rpcUrl: string) {
   }
 }
 
-export async function parseWasmMetadata(buffer: Buffer): Promise<string[]> {
+export async function parseWasmMetadata(buffer: Uint8Array | ArrayBuffer): Promise<string[]> {
   try {
-    const functionNames: string[] = [];
+    // Try to read Soroban's contract spec custom section (contractspecv0)
+    if (typeof WebAssembly !== "undefined") {
+      const module = await WebAssembly.compile(buffer);
+      const sections = WebAssembly.Module.customSections(
+        module,
+        "contractspecv0",
+      );
 
-    return functionNames.length > 0
-      ? functionNames
-      : ["(No public functions found)"];
+      if (sections.length > 0) {
+        const rawSection = new Uint8Array(sections[0]);
+        const decoder = new TextDecoder("utf-8");
+        const asText = decoder.decode(rawSection);
+
+        // Heuristic extraction of probable function names from the spec bytes.
+        // This avoids depending on full XDR decoding while still surfacing
+        // useful names for the UI.
+        const candidates =
+          asText.match(/[A-Za-z_][A-Za-z0-9_]{2,40}/g) ?? [];
+
+        const reserved = new Set([
+          "contract",
+          "spec",
+          "entry",
+          "function",
+          "struct",
+          "enum",
+          "type",
+          "symbol",
+          "address",
+          "string",
+          "i32",
+          "i64",
+          "i128",
+          "u32",
+          "u64",
+          "u128",
+          "bool",
+          "vec",
+          "map",
+        ]);
+
+        const unique = Array.from(
+          new Set(
+            candidates.filter(
+              (name) =>
+                !reserved.has(name.toLowerCase()) &&
+                // Soroban function names are typically lower_snake_case
+                /^[a-z][a-z0-9_]*$/.test(name),
+            ),
+          ),
+        );
+
+        if (unique.length > 0) {
+          return unique;
+        }
+      }
+    }
+
+    // Fallback: still return a helpful placeholder so the UI can render
+    return ["(No public functions found)"];
   } catch (e) {
     console.error("WASM Parsing Error:", e);
     return ["Parsing failed"];

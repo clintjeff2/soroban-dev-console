@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { rpc as SorobanRpc, Address, xdr, StrKey } from "@stellar/stellar-sdk";
 import {
   ArrowLeft,
@@ -27,6 +27,11 @@ import { Badge } from "@devconsole/ui";
 import { Alert, AlertDescription, AlertTitle } from "@devconsole/ui";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@devconsole/ui";
 import { useParams } from "next/navigation";
+import { Input } from "@devconsole/ui";
+import { Label } from "@devconsole/ui";
+import { toast } from "sonner";
+import { useAbiStore } from "@/store/useAbiStore";
+import { parseWasmMetadata } from "@devconsole/soroban-utils";
 
 interface ContractData {
   exists: boolean;
@@ -39,10 +44,109 @@ export default function ContractDetailPage() {
   const params = useParams();
   const contractId = params.contractId as string;
   const { getActiveNetworkConfig } = useNetworkStore();
+  const { setSpec } = useAbiStore();
 
   const [data, setData] = useState<ContractData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isUploadingInterface, setIsUploadingInterface] = useState(false);
+
+  const handleInterfaceUpload = async (
+    e: ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingInterface(true);
+
+    try {
+      const name = file.name.toLowerCase();
+
+      if (name.endsWith(".json")) {
+        const text = await file.text();
+        const json = JSON.parse(text);
+
+        const functions = extractFunctionNamesFromAbiJson(json);
+
+        if (!functions.length) {
+          toast.error("No functions discovered in ABI JSON.");
+          return;
+        }
+
+        setSpec(contractId, {
+          rawSpec: JSON.stringify(json),
+          functions,
+        });
+
+        toast.success("Local ABI loaded. Interaction UI is ready.");
+      } else if (name.endsWith(".wasm")) {
+        const arrayBuffer = await file.arrayBuffer();
+        const functions = await parseWasmMetadata(arrayBuffer);
+
+        if (!functions.length) {
+          toast.error("No functions discovered in WASM metadata.");
+          return;
+        }
+
+        setSpec(contractId, {
+          rawSpec: "local-wasm",
+          functions,
+        });
+
+        toast.success("Local WASM interface loaded. Interaction UI is ready.");
+      } else {
+        toast.error("Unsupported file type. Please upload .json or .wasm.");
+      }
+    } catch (err: any) {
+      console.error("Interface Upload Error:", err);
+      toast.error(err.message || "Failed to parse contract interface.");
+    } finally {
+      setIsUploadingInterface(false);
+      // Reset input so the same file can be chosen again if needed
+      e.target.value = "";
+    }
+  };
+
+  const extractFunctionNamesFromAbiJson = (abi: any): string[] => {
+    const names = new Set<string>();
+
+    if (!abi) return [];
+
+    // Common pattern: { functions: string[] }
+    if (Array.isArray(abi.functions)) {
+      abi.functions.forEach((f: any) => {
+        if (typeof f === "string") names.add(f);
+        if (f && typeof f.name === "string") names.add(f.name);
+      });
+    }
+
+    // CLI-style: top-level array of spec entries
+    const entries = Array.isArray(abi)
+      ? abi
+      : Array.isArray(abi.spec)
+        ? abi.spec
+        : [];
+
+    for (const entry of entries) {
+      if (!entry) continue;
+      if (
+        typeof entry.name === "string" &&
+        typeof entry.type === "string" &&
+        entry.type.toLowerCase().includes("func")
+      ) {
+        names.add(entry.name);
+      }
+      if (
+        typeof entry.name === "string" &&
+        typeof entry.kind === "string" &&
+        entry.kind.toLowerCase().includes("func")
+      ) {
+        names.add(entry.name);
+      }
+    }
+
+    return Array.from(names);
+  };
 
   useEffect(() => {
     async function fetchContract() {
