@@ -21,6 +21,8 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 
+import { WorkspaceSwitcher } from "./workspace-switcher";
+
 const items = [
   {
     title: "Home / Monitor",
@@ -67,11 +69,13 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
-      <SidebarHeader className="flex items-center justify-center py-4">
+      <SidebarHeader className="flex flex-col py-4 gap-4">
         <span className="font-bold text-lg truncate w-full px-2">
           DevConsole
         </span>
+        <WorkspaceSwitcher />
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>

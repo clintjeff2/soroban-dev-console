@@ -91,33 +91,36 @@ export default function ContractDetailPage() {
     <div className="container mx-auto p-6 space-y-8">
       {/* Navigation Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <Link href="/contracts">
+        <div className="flex items-center gap-4 min-w-0">
+          {/* ADDED shrink-0 HERE */}
+          <Link href="/contracts" className="shrink-0">
             <Button variant="outline" size="icon">
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+          {/* ADDED min-w-0 HERE */}
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2 flex-wrap">
               Contract Details
               {loading ? (
-                <Skeleton className="h-6 w-20 rounded-full" />
+                <Skeleton className="h-6 w-20 rounded-full shrink-0" />
               ) : data?.exists ? (
-                <Badge className="bg-green-600 hover:bg-green-700">Active</Badge>
+                <Badge className="bg-green-600 hover:bg-green-700 shrink-0">Active</Badge>
               ) : error ? (
-                <Badge variant="destructive">Error</Badge>
+                <Badge variant="destructive" className="shrink-0">Error</Badge>
               ) : (
-                <Badge variant="secondary">Not Found</Badge>
+                <Badge variant="secondary" className="shrink-0">Not Found</Badge>
               )}
             </h1>
-            <p className="text-muted-foreground font-mono text-sm mt-1">
+            {/* ADDED truncate HERE instead of break-all */}
+            <p className="text-muted-foreground font-mono text-sm mt-1 truncate">
               {contractId}
             </p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 shrink-0">
           <ContractUpgradeModal contractId={contractId as string} />
 
           <Button variant="outline" asChild>
@@ -156,7 +159,7 @@ export default function ContractDetailPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Contract Overview Card */}
-            <Card className="md:col-span-1">
+            <Card className="md:col-span-1 min-w-0">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Database className="h-5 w-5" />
@@ -195,7 +198,7 @@ export default function ContractDetailPage() {
             </Card>
 
             {/* Contract Interaction Form */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 min-w-0">
               <ContractCallForm contractId={contractId} />
             </div>
           </div>

@@ -6,24 +6,24 @@ import {
   FileCode,
   Globe,
   Search,
-  Settings,
   Terminal,
   Zap,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import { useNetworkStore } from "@/store/useNetworkStore";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const router = useRouter();
 
   const { workspaces, setActiveWorkspace } = useWorkspaceStore();
   const { currentNetwork, setNetwork } = useNetworkStore();
 
-  // Handle Keyboard Shortcut (Cmd+K or Ctrl+K)
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -37,6 +37,7 @@ export function CommandPalette() {
 
   const runCommand = (command: () => void) => {
     setOpen(false);
+    setSearch("");
     command();
   };
 
@@ -51,6 +52,8 @@ export function CommandPalette() {
         <div className="flex items-center border-b px-3">
           <Search className="text-muted-foreground mr-2 h-4 w-4" />
           <Command.Input
+            value={search} // Controlled input
+            onValueChange={setSearch}
             placeholder="Type a command or search..."
             className="h-12 w-full bg-transparent text-sm outline-none"
           />
@@ -66,12 +69,14 @@ export function CommandPalette() {
             className="text-muted-foreground px-2 py-1 text-[10px] font-bold uppercase"
           >
             <Command.Item
+              value="wasm registry upload code"
               onSelect={() => runCommand(() => router.push("/deploy/wasm"))}
               className="aria-selected:bg-accent flex cursor-pointer items-center rounded-md px-2 py-2 text-sm"
             >
               <FileCode className="mr-2 h-4 w-4" /> WASM Registry
             </Command.Item>
             <Command.Item
+              value="xdr transformer decoder encoder"
               onSelect={() => runCommand(() => router.push("/tools/xdr"))}
               className="aria-selected:bg-accent flex cursor-pointer items-center rounded-md px-2 py-2 text-sm"
             >
@@ -86,7 +91,13 @@ export function CommandPalette() {
             {workspaces.map((w) => (
               <Command.Item
                 key={w.id}
-                onSelect={() => runCommand(() => setActiveWorkspace(w.id))}
+                value={`workspace ${w.name}`}
+                onSelect={() =>
+                  runCommand(() => {
+                    setActiveWorkspace(w.id);
+                    toast.success(`Workspace switched to: ${w.name}`);
+                  })
+                }
                 className="aria-selected:bg-accent flex cursor-pointer items-center rounded-md px-2 py-2 text-sm"
               >
                 <Briefcase className="mr-2 h-4 w-4" /> {w.name}
@@ -101,7 +112,13 @@ export function CommandPalette() {
             {["testnet", "mainnet", "futurenet"].map((net) => (
               <Command.Item
                 key={net}
-                onSelect={() => runCommand(() => setNetwork(net))}
+                value={`network switch to ${net}`}
+                onSelect={() =>
+                  runCommand(() => {
+                    setNetwork(net);
+                    toast.success(`Network switched to ${net.toUpperCase()}`);
+                  })
+                }
                 className="aria-selected:bg-accent flex cursor-pointer items-center rounded-md px-2 py-2 text-sm"
               >
                 <Globe className="mr-2 h-4 w-4" /> Switch to {net}

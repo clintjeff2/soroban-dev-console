@@ -1,13 +1,8 @@
-// lib/soroban.ts
 import { rpc as SorobanRpc, xdr, Address } from "@stellar/stellar-sdk";
-import { xdr } from '@stellar/stellar-sdk';
 
-
-// Default to Testnet for now
 const TESTNET_RPC_URL = "https://soroban-testnet.stellar.org:443";
 
 export const server = new SorobanRpc.Server(TESTNET_RPC_URL);
-
 
 export async function getContractInfo(contractId: string) {
   try {
@@ -79,10 +74,12 @@ export async function parseWasmMetadata(buffer: Buffer): Promise<string[]> {
   try {
     const functionNames: string[] = [];
 
-    return functionNames.length > 0 ? functionNames : ['(No public functions found)'];
+    return functionNames.length > 0
+      ? functionNames
+      : ["(No public functions found)"];
   } catch (e) {
-    console.error('WASM Parsing Error:', e);
-    return ['Parsing failed'];
+    console.error("WASM Parsing Error:", e);
+    return ["Parsing failed"];
   }
 }
 
@@ -92,20 +89,20 @@ export async function parseWasmMetadata(buffer: Buffer): Promise<string[]> {
 export function parseSorobanError(error: any): string {
   const message = error?.message || String(error);
 
-  if (message.includes('VerificationFailed')) {
-    return 'Contract verification failed. Ensure the WASM file matches the expected interface.';
+  if (message.includes("VerificationFailed")) {
+    return "Contract verification failed. Ensure the WASM file matches the expected interface.";
   }
-  if (message.includes('ExceededAllowance')) {
-    return 'The operation exceeded the provided token allowance. Try increasing the limit.';
+  if (message.includes("ExceededAllowance")) {
+    return "The operation exceeded the provided token allowance. Try increasing the limit.";
   }
-  if (message.includes('InvalidAction')) {
-    return 'Invalid Action: The contract logic rejected this call (e.g., failed assertion).';
+  if (message.includes("InvalidAction")) {
+    return "Invalid Action: The contract logic rejected this call (e.g., failed assertion).";
   }
-  if (message.includes('ResourceLimitExceeded')) {
-    return 'Resource Limit Exceeded: This transaction requires more CPU or Memory than the network allows.';
+  if (message.includes("ResourceLimitExceeded")) {
+    return "Resource Limit Exceeded: This transaction requires more CPU or Memory than the network allows.";
   }
-  if (message.includes('404')) {
-    return 'Resource not found: The contract ID or Account does not exist on this network.';
+  if (message.includes("404")) {
+    return "Resource not found: The contract ID or Account does not exist on this network.";
   }
 
   return message;

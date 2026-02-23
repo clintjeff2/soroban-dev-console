@@ -29,6 +29,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useWallet } from "@/store/useWallet";
 
 interface TokenDashboardProps {
   contractId: string;
@@ -42,6 +43,7 @@ interface TokenMetadata {
 
 export function TokenDashboard({ contractId }: TokenDashboardProps) {
   const { getActiveNetworkConfig } = useNetworkStore();
+  const { address } = useWallet();
 
   const [metadata, setMetadata] = useState<TokenMetadata | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,20 +54,19 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
   const [balance, setBalance] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
 
-  // Helper to call a view function (read-only)
   const callView = async (method: string, args: any[] = []) => {
     const network = getActiveNetworkConfig();
     const server = new SorobanRpc.Server(network.rpcUrl);
     const contract = new Contract(contractId);
 
-    // Build a simulation transaction
-    // Use a dummy source for reading state
-    const source = "GBAB...DUMMY";
+    // Use the connected wallet address, or fallback to a known funded testnet address
+    const source = address || "GBZXN7PIRZGNMHGA7MUUUFFAUYVSF74BWXME4R37P2N6F5N4AUM5546F";
+
     const tx = new TransactionBuilder(
       {
         accountId: () => source,
         sequenceNumber: () => "0",
-        incrementSequenceNumber: () => {},
+        incrementSequenceNumber: () => { },
       },
       { fee: "100", networkPassphrase: network.networkPassphrase },
     )
@@ -178,7 +179,7 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Quick Balance Checker */}
           <div className="space-y-2">
-            <Label className="text-xs font-semibold uppercase text-muted-foreground">
+            <Label className="text-xs font-semibold uppercase text-muted-foreground shrink-0">
               Quick Balance Check
             </Label>
             <div className="flex gap-2">
@@ -211,21 +212,21 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
 
           {/* Quick Actions / Info */}
           <div className="space-y-2">
-            <Label className="text-xs font-semibold uppercase text-muted-foreground">
+            <Label className="text-xs font-semibold uppercase text-muted-foreground shrink-0">
               Standard Actions
             </Label>
             <div className="flex gap-2">
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full justify-start gap-2 cursor-not-allowed opacity-70"
+                className="w-full justify-start gap-2 cursor-not-allowed opacity-70 shrink-0"
               >
                 <ArrowRightLeft className="h-4 w-4" /> Transfer
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full justify-start gap-2 cursor-not-allowed opacity-70"
+                className="w-full justify-start gap-2 cursor-not-allowed break-all opacity-70 shrink-0"
               >
                 <Coins className="h-4 w-4" /> Mint
               </Button>

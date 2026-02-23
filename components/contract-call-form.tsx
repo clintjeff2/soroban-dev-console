@@ -24,7 +24,8 @@ import { ArgType, ContractArg, convertToScVal } from '@/lib/soroban-types';
 import { signTransaction } from '@stellar/freighter-api';
 import { SavedCallsSheet } from './saved-calls-sheet';
 import { AbiInputField } from './abi-input-field';
-
+import { useAbiStore } from '@/store/useAbiStore';
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -57,6 +58,7 @@ interface ContractCallFormProps {
 }
 
 export function ContractCallForm({ contractId }: ContractCallFormProps) {
+  const genId = () => Math.random().toString(36).substring(2, 9);
   const { isConnected, address } = useWallet();
   const { getActiveNetworkConfig } = useNetworkStore();
 
@@ -67,9 +69,37 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
   const { saveCall } = useSavedCallsStore();
   const [isSaveOpen, setIsSaveOpen] = useState(false);
   const [saveName, setSaveName] = useState('');
+  const { getSpec, setSpec } = useAbiStore();
+  const spec = getSpec(contractId);
+
+  useEffect(() => {
+    if (contractId === "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC" && !spec) {
+      setSpec(contractId, {
+        rawSpec: "",
+        functions: ["balance", "decimals", "name", "symbol", "transfer", "mint", "burn"]
+      });
+    }
+  }, [contractId, spec, setSpec]);
+
+  const handleFnChange = (name: string) => {
+    setFnName(name);
+    if (name === 'transfer') {
+      setArgs([
+        { id: genId(), name: 'from', type: 'address', value: '' },
+        { id: genId(), name: 'to', type: 'address', value: '' },
+        { id: genId(), name: 'amount', type: 'i128', value: '' }
+      ]);
+    } else if (name === 'balance') {
+      setArgs([
+        { id: genId(), name: 'id', type: 'address', value: '' }
+      ]);
+    } else {
+      setArgs([]);
+    }
+  };
 
   const addArg = () => {
-    setArgs([...args, { id: crypto.randomUUID(), type: 'symbol', value: '' }]);
+    setArgs([...args, { id: genId(), type: 'symbol', value: '' }]);
   };
 
   const removeArg = (id: string) => {
@@ -92,7 +122,7 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
 
       const operation = contract.call(fnName, ...scArgs);
 
-      const source = address || 'GBAB...DUMMY';
+      const source = address || 'GBZXN7PIRZGNMHGA7MUUUFFAUYVSF74BWXME4R37P2N6F5N4AUM5546F';
 
       const account = await server.getAccount(source).catch(() => null);
 
@@ -102,7 +132,7 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
         {
           accountId: () => source,
           sequenceNumber: () => sequence,
-          incrementSequenceNumber: () => {},
+          incrementSequenceNumber: () => { },
         },
         { fee: '100', networkPassphrase: network.networkPassphrase },
       )
@@ -211,28 +241,6 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
     toast.info(`Loaded: ${call.name}`);
   };
 
-  const handleCall = async () => {
-  // 1. Snapshot state BEFORE
-  const preState = await fetchAllContractStorage(contractId);
-
-  try {
-    const tx = await executeContractCall(contractId, fnName, args);
-
-    // 2. Wait a beat for ledger close, then snapshot AFTER
-    setTimeout(async () => {
-      const postState = await fetchAllContractStorage(contractId);
-      const diffs = computeStateDiff(preState, postState);
-
-      // 3. Save to store to trigger UI update
-      recordSnapshot(contractId, postState);
-      setLastDiffs(diffs);
-      toast.success('State diff recorded!');
-    }, 5000);
-  } catch (e) {
-    // handle error
-  }
-};
-
   return (
     <Card className="w-full">
       <CardHeader>
@@ -243,11 +251,24 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
       <CardContent className="space-y-6">
         <div className="space-y-2">
           <Label>Function Name</Label>
-          <Input
-            placeholder="e.g. initialize, increment, transfer"
-            value={fnName}
-            onChange={(e) => setFnName(e.target.value)}
-          />
+          {spec ? (
+            <Select value={fnName} onValueChange={handleFnChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a function..." />
+              </SelectTrigger>
+              <SelectContent>
+                {spec.functions.map((f) => (
+                  <SelectItem key={f} value={f}>{f}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <Input
+              placeholder="e.g. initialize, increment, transfer"
+              value={fnName}
+              onChange={(e) => setFnName(e.target.value)}
+            />
+          )}
         </div>
 
         <Dialog open={isSaveOpen} onOpenChange={setIsSaveOpen}>
