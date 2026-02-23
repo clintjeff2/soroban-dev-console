@@ -110,9 +110,9 @@ This project is participating in **Drips Wave** - a recurring funding cycle for 
 
 ## **Wave #2 Focus:** Expanding advanced capabilities—specifically dynamic ABI form generation, complex data types, and improved developer UX tools.
 
-## 🤝 Contributing
+## 🤝 Contributing 
 
-We welcome contributions from developers of all skill levels! This project participates in **Drips Wave**, which means contributors earn rewards for merged pull requests.
+We welcome contributions from developers of all skill levels! This project participates in **Drips Wave**, which  means contributors earn rewards for merged pull requests.
 
 ### How to Contribute
 
