@@ -81,9 +81,7 @@ export default function ContractDetailPage() {
         toast.success("Local ABI loaded. Interaction UI is ready.");
       } else if (name.endsWith(".wasm")) {
         const arrayBuffer = await file.arrayBuffer();
-        const functions = await parseWasmMetadata(
-          Buffer.from(arrayBuffer as ArrayBuffer),
-        );
+        const functions = await parseWasmMetadata(arrayBuffer);
 
         if (!functions.length) {
           toast.error("No functions discovered in WASM metadata.");

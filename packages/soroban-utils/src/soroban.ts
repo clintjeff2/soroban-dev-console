@@ -70,7 +70,7 @@ export async function fetchContractSpec(contractId: string, rpcUrl: string) {
   }
 }
 
-export async function parseWasmMetadata(buffer: Buffer): Promise<string[]> {
+export async function parseWasmMetadata(buffer: Uint8Array | ArrayBuffer): Promise<string[]> {
   try {
     // Try to read Soroban's contract spec custom section (contractspecv0)
     if (typeof WebAssembly !== "undefined") {
