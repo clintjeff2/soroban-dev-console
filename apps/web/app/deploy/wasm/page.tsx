@@ -22,16 +22,16 @@ import {
   Play,
   Trash2,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@devconsole/ui";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@devconsole/ui";
+import { Input } from "@devconsole/ui";
+import { Label } from "@devconsole/ui";
 import {
   Table,
   TableBody,
@@ -39,9 +39,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@devconsole/ui";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@devconsole/ui";
 import { parseWasmMetadata } from "@devconsole/soroban-utils";
 
 export default function WasmRegistryPage() {

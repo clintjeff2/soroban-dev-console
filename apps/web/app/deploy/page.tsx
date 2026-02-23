@@ -20,16 +20,16 @@ import {
     CheckCircle,
     Copy,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@devconsole/ui";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@devconsole/ui";
+import { Input } from "@devconsole/ui";
+import { Label } from "@devconsole/ui";
 import { toast } from "sonner";
 
 export default function DeployPage() {

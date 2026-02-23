@@ -11,17 +11,17 @@ import {
   FileJson,
   Clock,
 } from "lucide-react";
-import { Button } from "@devconsole/ui";
-import { Input } from "@devconsole/ui";
+import { Button } from "@devconsole/uibutton";
+import { Input } from "@devconsole/uiinput";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@devconsole/ui";
-import { Badge } from "@devconsole/ui";
-import { Separator } from "@devconsole/ui";
+} from "@devconsole/uicard";
+import { Badge } from "@devconsole/uibadge";
+import { Separator } from "@devconsole/uiseparator";
 import { toast } from "sonner";
 import Link from "next/link";
 

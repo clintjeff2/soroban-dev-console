@@ -34,7 +34,8 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.10",
-    "@devconsole/soroban-utils": "*"
+    "@devconsole/soroban-utils": "*",
+    "@devconsole/ui": "*"
   },
   "devDependencies": {
     "@types/node": "^25.0.9",

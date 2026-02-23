@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@devconsole/ui';
 import {
   Card,
   CardContent,
@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@devconsole/ui';
 import { AlertCircle, RefreshCcw, Copy, Home } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';

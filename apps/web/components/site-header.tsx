@@ -6,16 +6,16 @@ import { NetworkSwitcher } from "@/components/network-switcher";
 import { ModeToggle } from "@/components/mode-toggle";
 import { NetworkHealth } from "@/components/network-health";
 
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "@devconsole/ui";
+import { Separator } from "@devconsole/ui";
+import { Button } from "@devconsole/ui";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@devconsole/ui";
 
 import { Menu } from "lucide-react";
 

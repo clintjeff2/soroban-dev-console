@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useContractStore } from "@/store/useContractStore";
 import { Trash2, Plus, Search, FileCode } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@devconsole/ui";
+import { Input } from "@devconsole/ui";
 import Link from "next/link";
 import {
   Card,
@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
+} from "@devconsole/ui";
 import {
   Table,
   TableBody,
@@ -20,7 +20,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@devconsole/ui";
 import { toast } from "sonner";
 
 

@@ -1,7 +1,7 @@
 import { ConnectWalletButton } from "@/components/wallet-connect";
-import { Button } from "@/components/ui/button";
+import { Button } from "@devconsole/ui";
 import { TransactionFeed } from "@/components/transaction-feed";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@devconsole/ui";
 import { Wallet, ArrowRight, BookOpen } from "lucide-react";
 import Link from "next/link";
 

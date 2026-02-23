@@ -2,16 +2,16 @@
 
 import { useState } from "react";
 import { xdr } from "@stellar/stellar-sdk";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@devconsole/ui";
+import { Textarea } from "@devconsole/ui";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+} from "@devconsole/ui";
+import { Label } from "@devconsole/ui";
 import { AlertCircle, CheckCircle, Copy, Trash2, Code } from "lucide-react";
 import { toast } from "sonner";
 

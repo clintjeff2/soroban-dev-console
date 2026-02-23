@@ -1,5 +1,5 @@
-import { DocsSidebar } from "@/components/docs-sidebar"; 
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { DocsSidebar } from "@/components/docs-sidebar";
+import { ScrollArea } from "@devconsole/ui";
 
 export default function DocsLayout({
   children,

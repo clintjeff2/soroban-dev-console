@@ -17,10 +17,10 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@devconsole/ui";
-import { Button } from "@devconsole/ui";
-import { Input } from "@devconsole/ui";
-import { Label } from "@devconsole/ui";
+} from "@devconsole/uicard";
+import { Button } from "@devconsole/uibutton";
+import { Input } from "@devconsole/uiinput";
+import { Label } from "@devconsole/uilabel";
 import {
   Coins,
   Search,

@@ -3,9 +3,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn } from "@devconsole/ui";
 import { Book, Rocket, Code, Layers, Settings, FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@devconsole/ui";
 
 const docsRoutes = [
   {

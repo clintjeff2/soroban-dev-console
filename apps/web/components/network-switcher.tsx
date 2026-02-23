@@ -8,9 +8,9 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+} from '@devconsole/ui';
+import { Button } from '@devconsole/ui';
+import { Skeleton } from '@devconsole/ui';
 import { ChevronDown, AlertTriangle, Wifi, Settings } from 'lucide-react';
 import Link from 'next/link';
 

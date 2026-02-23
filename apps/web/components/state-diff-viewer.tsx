@@ -2,7 +2,7 @@
 
 import { ArrowRight, Edit3, Minus, Plus } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@devconsole/ui';
 import { DiffResult } from '@/lib/diff-utils';
 
 export function StateDiffViewer({ diffs }: { diffs: DiffResult[] }) {

@@ -14,10 +14,10 @@ import {
     Box,
     AlertCircle
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@devconsole/ui';
+import { Button } from '@devconsole/ui';
+import { ScrollArea } from '@devconsole/ui';
+import { Badge } from '@devconsole/ui';
 
 const getHorizonUrl = (networkId: string) => {
     switch (networkId) {

@@ -20,12 +20,12 @@ import { ContractUpgradeModal } from "@/components/contract-upgrade-modal";
 import { useNetworkStore } from "@/store/useNetworkStore";
 
 // UI
-import { Button } from "@devconsole/ui";
-import { Card, CardContent, CardHeader, CardTitle } from "@devconsole/ui";
-import { Skeleton } from "@devconsole/ui";
-import { Badge } from "@devconsole/ui";
-import { Alert, AlertDescription, AlertTitle } from "@devconsole/ui";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@devconsole/ui";
+import { Button } from "@devconsole/uibutton";
+import { Card, CardContent, CardHeader, CardTitle } from "@devconsole/uicard";
+import { Skeleton } from "@devconsole/uiskeleton";
+import { Badge } from "@devconsole/uibadge";
+import { Alert, AlertDescription, AlertTitle } from "@devconsole/uialert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@devconsole/uitabs";
 import { useParams } from "next/navigation";
 
 interface ContractData {

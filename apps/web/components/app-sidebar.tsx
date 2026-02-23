@@ -19,7 +19,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
-} from "@/components/ui/sidebar";
+} from "@devconsole/ui";
 
 import { WorkspaceSwitcher } from "./workspace-switcher";
 

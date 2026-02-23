@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@devconsole/ui';
 import Link from 'next/link';
 import { ArrowRight, Terminal, Zap } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@devconsole/ui';
 
 export default function DocsIntroPage() {
   return (

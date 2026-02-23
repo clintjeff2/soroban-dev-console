@@ -8,8 +8,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
+} from '@devconsole/ui';
+import { cn } from '@devconsole/ui';
 
 export function NetworkHealth() {
   const { getActiveNetworkConfig, health, setHealth } = useNetworkStore();

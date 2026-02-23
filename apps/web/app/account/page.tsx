@@ -11,11 +11,11 @@ import {
   Users,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@devconsole/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@devconsole/ui";
+import { Skeleton } from "@devconsole/ui";
+import { Badge } from "@devconsole/ui";
+import { Alert, AlertDescription, AlertTitle } from "@devconsole/ui";
 import {
   Table,
   TableBody,
@@ -23,7 +23,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@devconsole/ui";
 import { useWallet } from "@/store/useWallet";
 import { useNetworkStore } from "@/store/useNetworkStore";
 import { FundAccountButton } from "@/components/fund-account-button";

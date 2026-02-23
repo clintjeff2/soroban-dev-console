@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
+import { SidebarProvider, SidebarInset } from "@devconsole/ui"
 import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider";
@@ -32,7 +32,7 @@ export default function RootLayout({
                             <SiteHeader />
                             <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
                                 {children}
-                                 <CommandPalette />
+                                <CommandPalette />
                             </div>
                         </SidebarInset>
                     </SidebarProvider>

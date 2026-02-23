@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useWallet } from "@/store/useWallet";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@devconsole/ui";
+import { Skeleton } from "@devconsole/ui";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@devconsole/ui";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,7 +18,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@devconsole/ui";
 import { Wallet, LogOut, Copy, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import * as freighter from "@stellar/freighter-api";

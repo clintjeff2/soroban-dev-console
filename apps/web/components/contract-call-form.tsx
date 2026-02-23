@@ -26,23 +26,23 @@ import { SavedCallsSheet } from './saved-calls-sheet';
 import { AbiInputField } from './abi-input-field';
 import { useAbiStore } from '@/store/useAbiStore';
 import { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@devconsole/ui';
+import { Input } from '@devconsole/ui';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from '@/components/ui/card';
+} from '@devconsole/ui';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
+} from '@devconsole/ui';
+import { Label } from '@devconsole/ui';
 import {
   Dialog,
   DialogContent,
@@ -50,7 +50,7 @@ import {
   DialogTitle,
   DialogFooter,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from '@devconsole/ui';
 import { toast } from 'sonner';
 
 interface ContractCallFormProps {

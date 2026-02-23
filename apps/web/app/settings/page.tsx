@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { useNetworkStore } from '@/store/useNetworkStore';
 import { rpc as SorobanRpc } from '@stellar/stellar-sdk';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Button } from '@devconsole/ui';
+import { Input } from '@devconsole/ui';
+import { Label } from '@devconsole/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@devconsole/ui';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@devconsole/ui';
 import { Trash2, Plus, Wifi, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { DataManagement } from '@/components/data-management';
 import { toast } from 'sonner';

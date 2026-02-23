@@ -1,7 +1,7 @@
 'use client';
 
 import { useSavedCallsStore, SavedCall } from '@/store/useSavedCallsStore';
-import { Button } from '@/components/ui/button';
+import { Button } from '@devconsole/ui';
 import {
   Sheet,
   SheetContent,
@@ -9,10 +9,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { ScrollArea } from '@/components/ui/scroll-area';
+} from '@devconsole/ui';
+import { ScrollArea } from '@devconsole/ui';
 import { Bookmark, Trash2, PlayCircle } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@devconsole/ui';
 
 interface SavedCallsSheetProps {
   contractId: string;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useWallet } from "@/store/useWallet";
 import { useNetworkStore } from "@/store/useNetworkStore";
 import { fundAccount } from "@/lib/friendbot";
-import { Button } from "@/components/ui/button";
+import { Button } from "@devconsole/ui";
 import { Loader2, Coins } from "lucide-react";
 import { toast } from "sonner";
 

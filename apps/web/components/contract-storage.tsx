@@ -6,18 +6,18 @@ import {
   xdr,
   Address,
   scValToNative,
-  
+
 } from "@stellar/stellar-sdk";
 import { useNetworkStore } from "@/store/useNetworkStore";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@devconsole/ui";
+import { Input } from "@devconsole/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@devconsole/ui";
 import {
   Table,
   TableBody,
@@ -25,14 +25,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@devconsole/ui";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
+} from "@devconsole/ui";
 import { Plus, Trash2, RefreshCw, Database, Search } from "lucide-react";
 import { toast } from "sonner";
 

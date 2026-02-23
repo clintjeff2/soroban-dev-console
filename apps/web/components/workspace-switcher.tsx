@@ -3,15 +3,15 @@
 import { Briefcase, PlusCircle } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@devconsole/ui";
+import { Input } from "@devconsole/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@devconsole/ui";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 
 export function WorkspaceSwitcher() {

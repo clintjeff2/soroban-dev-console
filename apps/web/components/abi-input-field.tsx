@@ -1,9 +1,9 @@
 'use client';
 
 import { ContractArg } from '@devconsole/soroban-utils';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@devconsole/ui';
+import { Label } from '@devconsole/ui';
+import { Textarea } from '@devconsole/ui';
 
 interface AbiInputFieldProps {
   arg: ContractArg;
