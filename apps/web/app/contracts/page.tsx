@@ -23,7 +23,6 @@ import {
 } from "@devconsole/ui";
 import { toast } from "sonner";
 
-
 export default function ContractsPage() {
   const { contracts, addContract, removeContract } = useContractStore();
   const [inputVal, setInputVal] = useState("");
@@ -38,7 +37,9 @@ export default function ContractsPage() {
     const id = inputVal.trim();
 
     if (!id.startsWith("C") || id.length !== 56) {
-      toast.error('Invalid Contract ID. Must start with "C" and be 56 characters.');
+      toast.error(
+        'Invalid Contract ID. Must start with "C" and be 56 characters.',
+      );
       setError(
         'Invalid Contract ID. Must start with "C" and be 56 characters.',
       );
@@ -54,14 +55,14 @@ export default function ContractsPage() {
   if (!isMounted) return null;
 
   return (
-    <div className="container mx-auto p-6 space-y-8">
+    <div className="container mx-auto space-y-8 p-6">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
             Contract Explorer
           </h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="mt-1 text-muted-foreground">
             Manage and interact with your Soroban smart contracts.
           </p>
         </div>
@@ -76,7 +77,7 @@ export default function ContractsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <div className="flex-1">
               <Input
                 placeholder="C..."
@@ -87,7 +88,7 @@ export default function ContractsPage() {
                 }}
                 className={error ? "border-red-500" : ""}
               />
-              {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+              {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
             </div>
             <Button onClick={handleAdd} className="gap-2">
               <Plus className="h-4 w-4" />
@@ -121,17 +122,17 @@ export default function ContractsPage() {
             ) : (
               contracts.map((contract) => (
                 <TableRow key={contract.id}>
-                  <TableCell className="font-mono text-sm font-medium flex items-center gap-2">
+                  <TableCell className="flex items-center gap-2 font-mono text-sm font-medium">
                     <Link
                       href={`/contracts/${contract.id}`}
-                      className="flex items-center gap-2 hover:text-blue-500 hover:underline transition-colors"
+                      className="flex items-center gap-2 transition-colors hover:text-blue-500 hover:underline"
                     >
                       <FileCode className="h-4 w-4 text-blue-500" />
                       {contract.id}
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                    <span className="inline-flex items-center rounded-full border border-transparent bg-secondary px-2.5 py-0.5 text-xs font-semibold text-secondary-foreground transition-colors hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                       {contract.network}
                     </span>
                   </TableCell>

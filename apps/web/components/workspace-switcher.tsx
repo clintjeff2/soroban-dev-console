@@ -30,10 +30,10 @@ export function WorkspaceSwitcher() {
 
   return (
     <div className="space-y-2 px-3 py-2">
-      <div className="text-muted-foreground flex items-center justify-between px-1 text-[10px] font-bold uppercase">
+      <div className="flex items-center justify-between px-1 text-[10px] font-bold uppercase text-muted-foreground">
         <span>Workspaces</span>
         <button onClick={() => setIsCreating(!isCreating)}>
-          <PlusCircle className="hover:text-primary h-3 w-3 transition-colors" />
+          <PlusCircle className="h-3 w-3 transition-colors hover:text-primary" />
         </button>
       </div>
 
@@ -50,7 +50,7 @@ export function WorkspaceSwitcher() {
         </div>
       ) : (
         <Select value={activeWorkspaceId} onValueChange={setActiveWorkspace}>
-          <SelectTrigger className="bg-muted/50 hover:bg-muted h-8 border-none text-xs font-medium">
+          <SelectTrigger className="h-8 border-none bg-muted/50 text-xs font-medium hover:bg-muted">
             <Briefcase className="mr-2 h-3 w-3" />
             <SelectValue />
           </SelectTrigger>

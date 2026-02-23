@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useSavedCallsStore, SavedCall } from '@/store/useSavedCallsStore';
-import { Button } from '@devconsole/ui';
+import { useSavedCallsStore, SavedCall } from "@/store/useSavedCallsStore";
+import { Button } from "@devconsole/ui";
 import {
   Sheet,
   SheetContent,
@@ -9,10 +9,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@devconsole/ui';
-import { ScrollArea } from '@devconsole/ui';
-import { Bookmark, Trash2, PlayCircle } from 'lucide-react';
-import { Badge } from '@devconsole/ui';
+} from "@devconsole/ui";
+import { ScrollArea } from "@devconsole/ui";
+import { Bookmark, Trash2, PlayCircle } from "lucide-react";
+import { Badge } from "@devconsole/ui";
 
 interface SavedCallsSheetProps {
   contractId: string;
@@ -33,7 +33,7 @@ export function SavedCallsSheet({
         <Button variant="outline" size="sm" className="gap-2">
           <Bookmark className="h-4 w-4" />
           Saved Calls
-          <Badge variant="secondary" className="ml-1 px-1 h-5 min-w-[20px]">
+          <Badge variant="secondary" className="ml-1 h-5 min-w-[20px] px-1">
             {relevantCalls.length}
           </Badge>
         </Button>
@@ -46,10 +46,10 @@ export function SavedCallsSheet({
           </SheetDescription>
         </SheetHeader>
 
-        <ScrollArea className="h-[calc(100vh-120px)] mt-6 pr-4">
+        <ScrollArea className="mt-6 h-[calc(100vh-120px)] pr-4">
           <div className="space-y-4">
             {relevantCalls.length === 0 ? (
-              <div className="text-center text-sm text-muted-foreground py-8 border border-dashed rounded-md">
+              <div className="rounded-md border border-dashed py-8 text-center text-sm text-muted-foreground">
                 No saved calls yet.
                 <br />
                 Click "Save" on the form to add one.
@@ -58,16 +58,16 @@ export function SavedCallsSheet({
               relevantCalls.map((call) => (
                 <div
                   key={call.id}
-                  className="p-4 border rounded-lg bg-card hover:bg-muted/50 transition-colors relative group"
+                  className="group relative rounded-lg border bg-card p-4 transition-colors hover:bg-muted/50"
                 >
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold text-sm truncate pr-6">
+                  <div className="mb-2 flex items-start justify-between">
+                    <h4 className="truncate pr-6 text-sm font-semibold">
                       {call.name}
                     </h4>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-6 w-6 text-muted-foreground hover:text-red-500 absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute right-3 top-3 h-6 w-6 text-muted-foreground opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
                       onClick={(e) => {
                         e.stopPropagation();
                         removeCall(call.id);
@@ -77,7 +77,7 @@ export function SavedCallsSheet({
                     </Button>
                   </div>
 
-                  <div className="text-xs font-mono text-muted-foreground mb-3 space-y-1">
+                  <div className="mb-3 space-y-1 font-mono text-xs text-muted-foreground">
                     <div className="flex gap-2">
                       <span className="text-blue-500">fn:</span>
                       {call.fnName}

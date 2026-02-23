@@ -40,7 +40,7 @@ export function SiteHeader() {
   const pageTitle = getPageTitle(pathname);
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 sticky top-0 z-10 bg-background">
+    <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b bg-background px-4">
       <SidebarTrigger className="-ml-1 md:hidden" />
       <Separator orientation="vertical" className="mr-2 h-4 md:hidden" />
 
@@ -54,7 +54,7 @@ export function SiteHeader() {
         {/* Right side */}
         <div className="ml-auto flex items-center gap-4">
           {/* Desktop View */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
             <NetworkSwitcher />
             <ModeToggle />
             <ConnectWalletButton />
@@ -74,9 +74,9 @@ export function SiteHeader() {
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
 
-              <div className="flex flex-col gap-4 mt-8 px-2">
+              <div className="mt-8 flex flex-col gap-4 px-2">
                 <NetworkSwitcher />
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <span className="text-sm font-medium">Theme</span>
                   <ModeToggle />
                 </div>

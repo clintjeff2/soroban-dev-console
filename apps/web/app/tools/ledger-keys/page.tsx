@@ -79,7 +79,6 @@ export default function LedgerKeyCalculatorPage() {
           throw new Error("Unsupported key type");
       }
 
-
       const ledgerKey = xdr.LedgerKey.contractData(
         new xdr.LedgerKeyContractData({
           contract: new Address(contractId).toScAddress(),
@@ -104,18 +103,18 @@ export default function LedgerKeyCalculatorPage() {
   };
 
   return (
-    <div className="container  p-6 max-w-3xl space-y-8">
+    <div className="container max-w-3xl space-y-8 p-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+        <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
           Ledger Key Calculator
         </h1>
-        <p className="text-muted-foreground mt-2">
+        <p className="mt-2 text-muted-foreground">
           Generate the exact <code>LedgerKey</code> XDR needed to query contract
           storage or verifying state proofs.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Input Column */}
         <div className="space-y-6">
           <Card>
@@ -174,31 +173,31 @@ export default function LedgerKeyCalculatorPage() {
 
         {/* Result Column */}
         <div className="space-y-6">
-          <Card className="h-full flex flex-col">
+          <Card className="flex h-full flex-col">
             <CardHeader>
               <CardTitle>Calculated Key</CardTitle>
               <CardDescription>Base64 XDR Representation</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 flex flex-col">
+            <CardContent className="flex flex-1 flex-col">
               {error ? (
-                <div className="flex-1 flex items-center justify-center text-red-500 text-sm text-center p-4 border rounded-md border-red-200 bg-red-50 dark:bg-red-900/10">
+                <div className="flex flex-1 items-center justify-center rounded-md border border-red-200 bg-red-50 p-4 text-center text-sm text-red-500 dark:bg-red-900/10">
                   {error}
                 </div>
               ) : !xdrBase64 ? (
-                <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm border border-dashed rounded-md bg-muted/20">
+                <div className="flex flex-1 items-center justify-center rounded-md border border-dashed bg-muted/20 text-sm text-muted-foreground">
                   Enter details to calculate...
                 </div>
               ) : (
                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
                   {/* Result Box */}
                   <div className="relative">
-                    <div className="bg-slate-950 text-slate-50 p-4 rounded-md font-mono text-xs break-all min-h-[100px] flex items-center">
+                    <div className="flex min-h-[100px] items-center break-all rounded-md bg-slate-950 p-4 font-mono text-xs text-slate-50">
                       {xdrBase64}
                     </div>
                     <Button
                       size="icon"
                       variant="secondary"
-                      className="absolute top-2 right-2 h-6 w-6"
+                      className="absolute right-2 top-2 h-6 w-6"
                       onClick={copyToClipboard}
                     >
                       <Copy className="h-3 w-3" />
@@ -207,7 +206,7 @@ export default function LedgerKeyCalculatorPage() {
 
                   {/* Actions */}
                   <div className="space-y-2">
-                    <Label className="text-xs text-muted-foreground uppercase font-semibold">
+                    <Label className="text-xs font-semibold uppercase text-muted-foreground">
                       External Tools
                     </Label>
 

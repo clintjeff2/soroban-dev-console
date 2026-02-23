@@ -1,45 +1,45 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SidebarProvider, SidebarInset } from "@devconsole/ui"
-import { AppSidebar } from "@/components/app-sidebar"
-import { SiteHeader } from "@/components/site-header"
+import { SidebarProvider, SidebarInset } from "@devconsole/ui";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { CommandPalette } from "@/components/command-palette";
 
 export const metadata: Metadata = {
-    title: "Soroban DevConsole",
-    description: "Developer toolkit for Soroban smart contracts",
+  title: "Soroban DevConsole",
+  description: "Developer toolkit for Soroban smart contracts",
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <html lang="en" suppressHydrationWarning>
-            <body>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    disableTransitionOnChange
-                    enableSystem
-                >
-                    <SidebarProvider>
-                        <AppSidebar />
-                        <SidebarInset>
-                            <SiteHeader />
-                            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                                {children}
-                                <CommandPalette />
-                            </div>
-                        </SidebarInset>
-                    </SidebarProvider>
-                </ThemeProvider>
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          disableTransitionOnChange
+          enableSystem
+        >
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <SiteHeader />
+              <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                {children}
+                <CommandPalette />
+              </div>
+            </SidebarInset>
+          </SidebarProvider>
+        </ThemeProvider>
 
-                <Toaster richColors position="bottom-right" />
-            </body>
-        </html>
-    );
+        <Toaster richColors position="bottom-right" />
+      </body>
+    </html>
+  );
 }

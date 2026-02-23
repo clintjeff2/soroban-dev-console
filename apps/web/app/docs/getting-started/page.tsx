@@ -3,7 +3,7 @@ import { Terminal } from "lucide-react";
 
 export default function GettingStartedPage() {
   return (
-    <div className="space-y-8 max-w-3xl">
+    <div className="max-w-3xl space-y-8">
       <div className="space-y-2 border-b pb-6">
         <h1 className="text-3xl font-bold tracking-tight">Getting Started</h1>
         <p className="text-lg text-muted-foreground">
@@ -22,12 +22,12 @@ export default function GettingStartedPage() {
             recommend
             <strong> Freighter</strong>, the official wallet for Soroban.
           </p>
-          <ul className="list-disc pl-6 space-y-2 text-sm">
+          <ul className="list-disc space-y-2 pl-6 text-sm">
             <li>
               <a
                 href="https://www.freighter.app/"
                 target="_blank"
-                className="text-primary hover:underline font-medium"
+                className="font-medium text-primary hover:underline"
               >
                 Download Freighter Extension
               </a>

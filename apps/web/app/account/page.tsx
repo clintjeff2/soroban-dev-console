@@ -101,11 +101,14 @@ export default function AccountDashboard() {
         },
       });
     } catch (err: any) {
-      const is404 = err.message?.includes("404") || err.message?.includes("not found") || err.response?.status === 404;
+      const is404 =
+        err.message?.includes("404") ||
+        err.message?.includes("not found") ||
+        err.response?.status === 404;
 
       if (is404) {
         setError(
-          "Account not found on the network. This is common on Testnet if the account hasn't been funded yet."
+          "Account not found on the network. This is common on Testnet if the account hasn't been funded yet.",
         );
       } else {
         console.error("Failed to fetch account:", err);
@@ -125,18 +128,17 @@ export default function AccountDashboard() {
 
   // Get XLM (native) balance
   const xlmBalance = accountData?.balances.find(
-    (b) => b.asset_type === "native"
+    (b) => b.asset_type === "native",
   );
 
   // Get trustline balances (non-native assets)
-  const trustlines = accountData?.balances.filter(
-    (b) => b.asset_type !== "native"
-  ) || [];
+  const trustlines =
+    accountData?.balances.filter((b) => b.asset_type !== "native") || [];
 
   if (!isConnected || !address) {
     return (
       <div className="container mx-auto p-6">
-        <div className="flex items-center justify-center min-h-[400px]">
+        <div className="flex min-h-[400px] items-center justify-center">
           <Alert className="max-w-md">
             <Wallet className="h-4 w-4" />
             <AlertTitle>Wallet Not Connected</AlertTitle>
@@ -151,15 +153,15 @@ export default function AccountDashboard() {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto space-y-6 p-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+          <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
             <Wallet className="h-8 w-8" />
             Account Dashboard
           </h1>
-          <p className="text-muted-foreground font-mono text-sm mt-1">
+          <p className="mt-1 font-mono text-sm text-muted-foreground">
             {address}
           </p>
           <Badge variant="outline" className="mt-2">
@@ -175,11 +177,12 @@ export default function AccountDashboard() {
             variant="outline"
             size="sm"
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
+            <RefreshCw
+              className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`}
+            />
             Refresh
           </Button>
         </div>
-
       </div>
 
       {/* Error Alert */}
@@ -190,9 +193,12 @@ export default function AccountDashboard() {
           <AlertDescription className="space-y-2">
             <p>{error}</p>
             {error.includes("not found") && (
-              <div className="mt-3 p-3 bg-destructive/10 rounded-md border border-destructive/20">
+              <div className="mt-3 rounded-md border border-destructive/20 bg-destructive/10 p-3">
                 <p className="text-sm font-medium text-foreground">
-                  💡 Click the <strong className="text-blue-500">"Get Testnet XLM"</strong> button in the top right to instantly fund and create this account!
+                  💡 Click the{" "}
+                  <strong className="text-blue-500">"Get Testnet XLM"</strong>{" "}
+                  button in the top right to instantly fund and create this
+                  account!
                 </p>
               </div>
             )}
@@ -220,16 +226,18 @@ export default function AccountDashboard() {
                 })}{" "}
                 <span className="text-2xl text-muted-foreground">XLM</span>
               </p>
-              {xlmBalance.buying_liabilities && parseFloat(xlmBalance.buying_liabilities) > 0 && (
-                <p className="text-sm text-muted-foreground">
-                  Buying Liabilities: {xlmBalance.buying_liabilities} XLM
-                </p>
-              )}
-              {xlmBalance.selling_liabilities && parseFloat(xlmBalance.selling_liabilities) > 0 && (
-                <p className="text-sm text-muted-foreground">
-                  Selling Liabilities: {xlmBalance.selling_liabilities} XLM
-                </p>
-              )}
+              {xlmBalance.buying_liabilities &&
+                parseFloat(xlmBalance.buying_liabilities) > 0 && (
+                  <p className="text-sm text-muted-foreground">
+                    Buying Liabilities: {xlmBalance.buying_liabilities} XLM
+                  </p>
+                )}
+              {xlmBalance.selling_liabilities &&
+                parseFloat(xlmBalance.selling_liabilities) > 0 && (
+                  <p className="text-sm text-muted-foreground">
+                    Selling Liabilities: {xlmBalance.selling_liabilities} XLM
+                  </p>
+                )}
             </div>
           ) : (
             <p className="text-muted-foreground">No balance data available</p>
@@ -238,7 +246,7 @@ export default function AccountDashboard() {
       </Card>
 
       {/* Account Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Sequence Number */}
         <Card>
           <CardHeader>
@@ -272,11 +280,14 @@ export default function AccountDashboard() {
             ) : accountData ? (
               <div className="space-y-2">
                 <p className="font-mono text-xl">
-                  {accountData.signers.length} Signer{accountData.signers.length !== 1 ? "s" : ""}
+                  {accountData.signers.length} Signer
+                  {accountData.signers.length !== 1 ? "s" : ""}
                 </p>
-                <div className="text-xs text-muted-foreground space-y-1">
+                <div className="space-y-1 text-xs text-muted-foreground">
                   <p>Low Threshold: {accountData.thresholds.low_threshold}</p>
-                  <p>Medium Threshold: {accountData.thresholds.med_threshold}</p>
+                  <p>
+                    Medium Threshold: {accountData.thresholds.med_threshold}
+                  </p>
                   <p>High Threshold: {accountData.thresholds.high_threshold}</p>
                 </div>
               </div>
@@ -313,7 +324,9 @@ export default function AccountDashboard() {
                     <TableHead>Asset Code</TableHead>
                     <TableHead>Balance</TableHead>
                     <TableHead>Limit</TableHead>
-                    <TableHead className="hidden md:table-cell">Issuer</TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Issuer
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -323,17 +336,20 @@ export default function AccountDashboard() {
                         {trustline.asset_code || "Unknown"}
                       </TableCell>
                       <TableCell className="font-mono">
-                        {parseFloat(trustline.balance).toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 7,
-                        })}
+                        {parseFloat(trustline.balance).toLocaleString(
+                          undefined,
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 7,
+                          },
+                        )}
                       </TableCell>
                       <TableCell className="font-mono">
                         {trustline.limit
                           ? parseFloat(trustline.limit).toLocaleString()
                           : "N/A"}
                       </TableCell>
-                      <TableCell className="hidden md:table-cell font-mono text-xs">
+                      <TableCell className="hidden font-mono text-xs md:table-cell">
                         {trustline.asset_issuer ? (
                           <span title={trustline.asset_issuer}>
                             {trustline.asset_issuer.slice(0, 8)}...
@@ -349,7 +365,7 @@ export default function AccountDashboard() {
               </Table>
             </div>
           ) : (
-            <div className="text-center py-8">
+            <div className="py-8 text-center">
               <p className="text-muted-foreground">
                 No trustlines found. This account only holds native XLM.
               </p>
@@ -365,13 +381,17 @@ export default function AccountDashboard() {
             <CardTitle className="text-lg">Additional Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="flex justify-between p-3 bg-muted/50 rounded-lg">
+            <div className="flex justify-between rounded-lg bg-muted/50 p-3">
               <span className="text-sm font-medium">Subentries</span>
-              <span className="font-mono text-sm">{accountData.numSubentries}</span>
+              <span className="font-mono text-sm">
+                {accountData.numSubentries}
+              </span>
             </div>
-            <div className="flex justify-between p-3 bg-muted/50 rounded-lg">
+            <div className="flex justify-between rounded-lg bg-muted/50 p-3">
               <span className="text-sm font-medium">Total Assets</span>
-              <span className="font-mono text-sm">{accountData.balances.length}</span>
+              <span className="font-mono text-sm">
+                {accountData.balances.length}
+              </span>
             </div>
           </CardContent>
         </Card>

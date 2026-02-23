@@ -2,10 +2,13 @@ export interface DiffResult {
   key: string;
   oldValue: string | null;
   newValue: string | null;
-  type: 'added' | 'modified' | 'deleted';
+  type: "added" | "modified" | "deleted";
 }
 
-export function computeStateDiff(oldState: Record<string, string>, newState: Record<string, string>): DiffResult[] {
+export function computeStateDiff(
+  oldState: Record<string, string>,
+  newState: Record<string, string>,
+): DiffResult[] {
   const diffs: DiffResult[] = [];
   const allKeys = new Set([...Object.keys(oldState), ...Object.keys(newState)]);
 
@@ -14,11 +17,11 @@ export function computeStateDiff(oldState: Record<string, string>, newState: Rec
     const newVal = newState[key];
 
     if (!oldVal && newVal) {
-      diffs.push({ key, oldValue: null, newValue: newVal, type: 'added' });
+      diffs.push({ key, oldValue: null, newValue: newVal, type: "added" });
     } else if (oldVal && !newVal) {
-      diffs.push({ key, oldValue: oldVal, newValue: null, type: 'deleted' });
+      diffs.push({ key, oldValue: oldVal, newValue: null, type: "deleted" });
     } else if (oldVal !== newVal) {
-      diffs.push({ key, oldValue: oldVal, newValue: newVal, type: 'modified' });
+      diffs.push({ key, oldValue: oldVal, newValue: newVal, type: "modified" });
     }
   });
 

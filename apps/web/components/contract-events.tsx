@@ -87,7 +87,7 @@ export function ContractEvents({ contractId }: ContractEventsProps) {
 
   if (error) {
     return (
-      <div className="p-4 text-sm text-red-500 bg-red-50 rounded-md flex items-center gap-2">
+      <div className="flex items-center gap-2 rounded-md bg-red-50 p-4 text-sm text-red-500">
         <AlertCircle className="h-4 w-4" />
         {error}
       </div>
@@ -127,10 +127,10 @@ export function ContractEvents({ contractId }: ContractEventsProps) {
                       {evt.type}
                     </span>
                   </TableCell>
-                  <TableCell className="max-w-[200px] truncate text-xs font-mono text-muted-foreground">
+                  <TableCell className="max-w-[200px] truncate font-mono text-xs text-muted-foreground">
                     {evt.topic.join(", ")}
                   </TableCell>
-                  <TableCell className="text-right max-w-[200px] truncate text-xs font-mono">
+                  <TableCell className="max-w-[200px] truncate text-right font-mono text-xs">
                     {/* Data is usually XDR base64, truncated for UI */}
                     {evt.data.slice(0, 20)}...
                   </TableCell>

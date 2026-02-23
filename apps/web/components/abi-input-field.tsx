@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { ContractArg } from '@devconsole/soroban-utils';
-import { Input } from '@devconsole/ui';
-import { Label } from '@devconsole/ui';
-import { Textarea } from '@devconsole/ui';
+import { ContractArg } from "@devconsole/soroban-utils";
+import { Input } from "@devconsole/ui";
+import { Label } from "@devconsole/ui";
+import { Textarea } from "@devconsole/ui";
 
 interface AbiInputFieldProps {
   arg: ContractArg;
@@ -11,13 +11,13 @@ interface AbiInputFieldProps {
 }
 
 export function AbiInputField({ arg, onChange }: AbiInputFieldProps) {
-  const isComplex = arg.type === 'vec' || arg.type === 'map';
+  const isComplex = arg.type === "vec" || arg.type === "map";
 
   return (
-    <div className="space-y-1.5 flex-1">
-      <div className="flex justify-between items-center">
-        <Label className="text-[10px] uppercase font-bold text-muted-foreground">
-          {arg.name || 'Argument'}
+    <div className="flex-1 space-y-1.5">
+      <div className="flex items-center justify-between">
+        <Label className="text-[10px] font-bold uppercase text-muted-foreground">
+          {arg.name || "Argument"}
           <span className="ml-1 font-mono lowercase opacity-60">
             ({arg.type})
           </span>
@@ -27,15 +27,15 @@ export function AbiInputField({ arg, onChange }: AbiInputFieldProps) {
       {isComplex ? (
         <Textarea
           placeholder={
-            arg.type === 'vec' ? '[item1, item2]' : '{"key": "value"}'
+            arg.type === "vec" ? "[item1, item2]" : '{"key": "value"}'
           }
           value={arg.value}
           onChange={(e) => onChange(arg.id, e.target.value)}
-          className="font-mono text-xs min-h-[80px]"
+          className="min-h-[80px] font-mono text-xs"
         />
       ) : (
         <Input
-          type={arg.type === 'i32' ? 'number' : 'text'}
+          type={arg.type === "i32" ? "number" : "text"}
           placeholder={`Enter ${arg.type}...`}
           value={arg.value}
           onChange={(e) => onChange(arg.id, e.target.value)}
@@ -45,4 +45,3 @@ export function AbiInputField({ arg, onChange }: AbiInputFieldProps) {
     </div>
   );
 }
-

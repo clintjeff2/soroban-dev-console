@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface Workspace {
   id: string;
@@ -25,14 +25,14 @@ export const useWorkspaceStore = create<WorkspaceState>()(
     (set) => ({
       workspaces: [
         {
-          id: 'default',
-          name: 'Default Project',
+          id: "default",
+          name: "Default Project",
           contractIds: [],
           savedCalls: [],
           createdAt: Date.now(),
         },
       ],
-      activeWorkspaceId: 'default',
+      activeWorkspaceId: "default",
 
       createWorkspace: (name) =>
         set((state) => ({
@@ -53,16 +53,24 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       addContractToWorkspace: (workspaceId, contractId) =>
         set((state) => ({
           workspaces: state.workspaces.map((w) =>
-            w.id === workspaceId ? { ...w, contractIds: [...new Set([...w.contractIds, contractId])] } : w
+            w.id === workspaceId
+              ? {
+                  ...w,
+                  contractIds: [...new Set([...w.contractIds, contractId])],
+                }
+              : w,
           ),
         })),
 
       deleteWorkspace: (id) =>
         set((state) => ({
           workspaces: state.workspaces.filter((w) => w.id !== id),
-          activeWorkspaceId: state.activeWorkspaceId === id ? 'default' : state.activeWorkspaceId,
+          activeWorkspaceId:
+            state.activeWorkspaceId === id
+              ? "default"
+              : state.activeWorkspaceId,
         })),
     }),
-    { name: 'soroban-workspaces' }
-  )
+    { name: "soroban-workspaces" },
+  ),
 );

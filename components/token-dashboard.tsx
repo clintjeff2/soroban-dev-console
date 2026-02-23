@@ -60,13 +60,14 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
     const contract = new Contract(contractId);
 
     // Use the connected wallet address, or fallback to a known funded testnet address
-    const source = address || "GBZXN7PIRZGNMHGA7MUUUFFAUYVSF74BWXME4R37P2N6F5N4AUM5546F";
+    const source =
+      address || "GBZXN7PIRZGNMHGA7MUUUFFAUYVSF74BWXME4R37P2N6F5N4AUM5546F";
 
     const tx = new TransactionBuilder(
       {
         accountId: () => source,
         sequenceNumber: () => "0",
-        incrementSequenceNumber: () => { },
+        incrementSequenceNumber: () => {},
       },
       { fee: "100", networkPassphrase: network.networkPassphrase },
     )
@@ -146,12 +147,12 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
   };
 
   if (loading)
-    return <div className="h-24 w-full bg-muted/20 animate-pulse rounded-xl" />;
+    return <div className="bg-muted/20 h-24 w-full animate-pulse rounded-xl" />;
 
   if (!isToken || !metadata) return null;
 
   return (
-    <Card className="border-blue-200 dark:border-blue-900 bg-blue-50/30 dark:bg-blue-900/10 mb-6">
+    <Card className="mb-6 border-blue-200 bg-blue-50/30 dark:border-blue-900 dark:bg-blue-900/10">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -165,10 +166,10 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
             </CardDescription>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold font-mono">
+            <div className="font-mono text-2xl font-bold">
               {metadata.symbol}
             </div>
-            <div className="text-xs text-muted-foreground">
+            <div className="text-muted-foreground text-xs">
               {metadata.decimals} Decimals
             </div>
           </div>
@@ -176,10 +177,10 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
       </CardHeader>
 
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Quick Balance Checker */}
           <div className="space-y-2">
-            <Label className="text-xs font-semibold uppercase text-muted-foreground shrink-0">
+            <Label className="text-muted-foreground shrink-0 text-xs font-semibold uppercase">
               Quick Balance Check
             </Label>
             <div className="flex gap-2">
@@ -203,35 +204,35 @@ export function TokenDashboard({ contractId }: TokenDashboardProps) {
             </div>
 
             {balance && (
-              <div className="mt-2 p-3 bg-background border rounded-md flex items-center gap-3 animate-in fade-in slide-in-from-top-1">
+              <div className="bg-background animate-in fade-in slide-in-from-top-1 mt-2 flex items-center gap-3 rounded-md border p-3">
                 <CreditCard className="h-4 w-4 text-green-600" />
-                <span className="font-mono font-bold text-sm">{balance}</span>
+                <span className="font-mono text-sm font-bold">{balance}</span>
               </div>
             )}
           </div>
 
           {/* Quick Actions / Info */}
           <div className="space-y-2">
-            <Label className="text-xs font-semibold uppercase text-muted-foreground shrink-0">
+            <Label className="text-muted-foreground shrink-0 text-xs font-semibold uppercase">
               Standard Actions
             </Label>
             <div className="flex gap-2">
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full justify-start gap-2 cursor-not-allowed opacity-70 shrink-0"
+                className="w-full shrink-0 cursor-not-allowed justify-start gap-2 opacity-70"
               >
                 <ArrowRightLeft className="h-4 w-4" /> Transfer
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full justify-start gap-2 cursor-not-allowed break-all opacity-70 shrink-0"
+                className="w-full shrink-0 cursor-not-allowed justify-start gap-2 break-all opacity-70"
               >
                 <Coins className="h-4 w-4" /> Mint
               </Button>
             </div>
-            <p className="text-[10px] text-muted-foreground pt-1">
+            <p className="text-muted-foreground pt-1 text-[10px]">
               * Use the "Interact" form below to execute these transfers.
             </p>
           </div>

@@ -91,7 +91,7 @@ export default function XdrDecoderPage() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl space-y-6">
+    <div className="container mx-auto max-w-4xl space-y-6 p-6">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">XDR Decoder</h1>
         <p className="text-muted-foreground">
@@ -100,10 +100,10 @@ export default function XdrDecoderPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Input Section */}
         <div className="space-y-4">
-          <Card className="h-full flex flex-col">
+          <Card className="flex h-full flex-col">
             <CardHeader>
               <CardTitle>Input</CardTitle>
             </CardHeader>
@@ -113,7 +113,7 @@ export default function XdrDecoderPage() {
                 <Textarea
                   id="xdr-input"
                   placeholder="AAAAAgAAA..."
-                  className="font-mono text-xs min-h-[300px] resize-none"
+                  className="min-h-[300px] resize-none font-mono text-xs"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                 />
@@ -134,8 +134,8 @@ export default function XdrDecoderPage() {
               </div>
 
               {error && (
-                <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-900/20 rounded-md flex items-start gap-2">
-                  <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
+                <div className="flex items-start gap-2 rounded-md bg-red-50 p-3 text-sm text-red-500 dark:bg-red-900/20">
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   {error}
                 </div>
               )}
@@ -145,13 +145,13 @@ export default function XdrDecoderPage() {
 
         {/* Output Section */}
         <div className="space-y-4">
-          <Card className="h-full flex flex-col border-dashed bg-muted/30">
+          <Card className="flex h-full flex-col border-dashed bg-muted/30">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <div className="space-y-1">
                 <CardTitle>Result</CardTitle>
                 <CardDescription>
                   {detectedType ? (
-                    <span className="text-green-600 font-medium flex items-center gap-1">
+                    <span className="flex items-center gap-1 font-medium text-green-600">
                       <CheckCircle className="h-3 w-3" />
                       {detectedType}
                     </span>
@@ -166,13 +166,13 @@ export default function XdrDecoderPage() {
                 </Button>
               )}
             </CardHeader>
-            <CardContent className="flex-1 relative min-h-[300px]">
+            <CardContent className="relative min-h-[300px] flex-1">
               {decoded ? (
-                <div className="absolute inset-4 overflow-auto rounded-md bg-zinc-950 text-zinc-50 p-4 font-mono text-xs">
+                <div className="absolute inset-4 overflow-auto rounded-md bg-zinc-950 p-4 font-mono text-xs text-zinc-50">
                   <pre>{decoded}</pre>
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-full text-muted-foreground text-sm italic">
+                <div className="flex h-full items-center justify-center text-sm italic text-muted-foreground">
                   Decoded JSON will appear here
                 </div>
               )}

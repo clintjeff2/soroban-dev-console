@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { Button } from '@devconsole/ui';
+import { useEffect } from "react";
+import { Button } from "@devconsole/ui";
 import {
   Card,
   CardContent,
@@ -9,10 +9,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@devconsole/ui';
-import { AlertCircle, RefreshCcw, Copy, Home } from 'lucide-react';
-import Link from 'next/link';
-import { toast } from 'sonner';
+} from "@devconsole/ui";
+import { AlertCircle, RefreshCcw, Copy, Home } from "lucide-react";
+import Link from "next/link";
+import { toast } from "sonner";
 
 export default function GlobalError({
   error,
@@ -23,7 +23,7 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     // Log the error to an external service if needed
-    console.error('Application Crash:', error);
+    console.error("Application Crash:", error);
   }, [error]);
 
   const copyDiagnosticReport = () => {
@@ -35,14 +35,14 @@ export default function GlobalError({
       url: window.location.href,
     };
     navigator.clipboard.writeText(JSON.stringify(report, null, 2));
-    toast.success('Diagnostic report copied to clipboard');
+    toast.success("Diagnostic report copied to clipboard");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
-      <Card className="max-w-md w-full border-destructive/50 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
+      <Card className="w-full max-w-md border-destructive/50 shadow-lg">
         <CardHeader>
-          <div className="h-12 w-12 rounded-full bg-destructive/10 flex items-center justify-center mb-2">
+          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
             <AlertCircle className="h-6 w-6 text-destructive" />
           </div>
           <CardTitle>Application Error</CardTitle>
@@ -52,9 +52,9 @@ export default function GlobalError({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="bg-muted p-3 rounded-md overflow-hidden">
-            <p className="text-xs font-mono break-all text-muted-foreground">
-              {error.message || 'An unknown error occurred'}
+          <div className="overflow-hidden rounded-md bg-muted p-3">
+            <p className="break-all font-mono text-xs text-muted-foreground">
+              {error.message || "An unknown error occurred"}
             </p>
           </div>
         </CardContent>

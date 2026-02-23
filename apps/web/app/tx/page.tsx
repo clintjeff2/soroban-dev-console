@@ -72,7 +72,7 @@ export default function TransactionLookupPage() {
   };
 
   return (
-    <div className="container p-6 max-w-4xl space-y-8">
+    <div className="container max-w-4xl space-y-8 p-6">
       <div className="flex items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
@@ -115,7 +115,7 @@ export default function TransactionLookupPage() {
                 <CardTitle className="flex items-center gap-2">
                   Transaction Details
                   {txData.successful ? (
-                    <Badge className="bg-green-600 hover:bg-green-700 gap-1">
+                    <Badge className="gap-1 bg-green-600 hover:bg-green-700">
                       <CheckCircle2 className="h-3 w-3" /> Success
                     </Badge>
                   ) : (
@@ -124,7 +124,7 @@ export default function TransactionLookupPage() {
                     </Badge>
                   )}
                 </CardTitle>
-                <CardDescription className="font-mono text-xs mt-2 break-all">
+                <CardDescription className="mt-2 break-all font-mono text-xs">
                   {txData.hash}
                 </CardDescription>
               </div>
@@ -132,7 +132,7 @@ export default function TransactionLookupPage() {
           </CardHeader>
           <Separator />
           <CardContent className="grid gap-6 pt-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               <div className="space-y-1">
                 <p className="text-xs font-medium text-muted-foreground">
                   Created At
@@ -146,13 +146,13 @@ export default function TransactionLookupPage() {
                 <p className="text-xs font-medium text-muted-foreground">
                   Ledger
                 </p>
-                <p className="text-sm font-mono">{txData.ledger_attr}</p>
+                <p className="font-mono text-sm">{txData.ledger_attr}</p>
               </div>
               <div className="space-y-1">
                 <p className="text-xs font-medium text-muted-foreground">
                   Fee Charged
                 </p>
-                <p className="text-sm font-mono">
+                <p className="font-mono text-sm">
                   {txData.fee_charged} stroops
                 </p>
               </div>
@@ -160,7 +160,7 @@ export default function TransactionLookupPage() {
                 <p className="text-xs font-medium text-muted-foreground">
                   Operation Count
                 </p>
-                <p className="text-sm font-mono">{txData.operation_count}</p>
+                <p className="font-mono text-sm">{txData.operation_count}</p>
               </div>
             </div>
 
@@ -168,7 +168,7 @@ export default function TransactionLookupPage() {
               <p className="text-xs font-medium text-muted-foreground">
                 Source Account
               </p>
-              <p className="text-sm font-mono break-all bg-muted p-2 rounded-md">
+              <p className="break-all rounded-md bg-muted p-2 font-mono text-sm">
                 {txData.source_account}
               </p>
             </div>
@@ -178,7 +178,7 @@ export default function TransactionLookupPage() {
                 <p className="text-xs font-medium text-muted-foreground">
                   Memo ({txData.memo_type})
                 </p>
-                <p className="text-sm p-2 border rounded-md">{txData.memo}</p>
+                <p className="rounded-md border p-2 text-sm">{txData.memo}</p>
               </div>
             )}
 
@@ -198,7 +198,7 @@ export default function TransactionLookupPage() {
                   <FileJson className="h-3 w-3" /> Copy XDR
                 </Button>
               </div>
-              <div className="bg-muted p-4 rounded-md font-mono text-sm break-all whitespace-pre-wrap">
+              <div className="whitespace-pre-wrap break-all rounded-md bg-muted p-4 font-mono text-sm">
                 {txData.envelope_xdr}
               </div>
               <div className="flex justify-end">

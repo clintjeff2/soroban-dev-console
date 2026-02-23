@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface NetworkHealth {
-  status: 'healthy' | 'degraded' | 'offline';
+  status: "healthy" | "degraded" | "offline";
   latestLedger: number;
   protocolVersion: number;
   latencyMs: number;

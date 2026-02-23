@@ -53,7 +53,9 @@ export default function ContractDetailPage() {
         const server = new SorobanRpc.Server(network.rpcUrl);
         const cleanId = decodeURIComponent(contractId).trim();
         if (!StrKey.isValidContract(cleanId)) {
-          throw new Error("Invalid Contract ID format. Must be a 56-character string starting with C.");
+          throw new Error(
+            "Invalid Contract ID format. Must be a 56-character string starting with C.",
+          );
         }
 
         const ledgerKey = xdr.LedgerKey.contractData(
@@ -88,10 +90,10 @@ export default function ContractDetailPage() {
   }, [contractId, getActiveNetworkConfig]);
 
   return (
-    <div className="container mx-auto p-6 space-y-8">
+    <div className="container mx-auto space-y-8 p-6">
       {/* Navigation Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-4 min-w-0">
+      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div className="flex min-w-0 items-center gap-4">
           {/* ADDED shrink-0 HERE */}
           <Link href="/contracts" className="shrink-0">
             <Button variant="outline" size="icon">
@@ -100,27 +102,33 @@ export default function ContractDetailPage() {
           </Link>
           {/* ADDED min-w-0 HERE */}
           <div className="min-w-0">
-            <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2 flex-wrap">
+            <h1 className="flex flex-wrap items-center gap-2 text-2xl font-bold tracking-tight">
               Contract Details
               {loading ? (
-                <Skeleton className="h-6 w-20 rounded-full shrink-0" />
+                <Skeleton className="h-6 w-20 shrink-0 rounded-full" />
               ) : data?.exists ? (
-                <Badge className="bg-green-600 hover:bg-green-700 shrink-0">Active</Badge>
+                <Badge className="shrink-0 bg-green-600 hover:bg-green-700">
+                  Active
+                </Badge>
               ) : error ? (
-                <Badge variant="destructive" className="shrink-0">Error</Badge>
+                <Badge variant="destructive" className="shrink-0">
+                  Error
+                </Badge>
               ) : (
-                <Badge variant="secondary" className="shrink-0">Not Found</Badge>
+                <Badge variant="secondary" className="shrink-0">
+                  Not Found
+                </Badge>
               )}
             </h1>
             {/* ADDED truncate HERE instead of break-all */}
-            <p className="text-muted-foreground font-mono text-sm mt-1 truncate">
+            <p className="mt-1 truncate font-mono text-sm text-muted-foreground">
               {contractId}
             </p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 shrink-0">
+        <div className="flex shrink-0 gap-2">
           <ContractUpgradeModal contractId={contractId as string} />
 
           <Button variant="outline" asChild>
@@ -157,9 +165,9 @@ export default function ContractDetailPage() {
           {/* Token Dashboard - appears only for SAC contracts */}
           <TokenDashboard contractId={contractId} />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {/* Contract Overview Card */}
-            <Card className="md:col-span-1 min-w-0">
+            <Card className="min-w-0 md:col-span-1">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Database className="h-5 w-5" />
@@ -182,7 +190,9 @@ export default function ContractDetailPage() {
                     {data.ledgerSeq && (
                       <div className="flex items-center gap-2 text-sm">
                         <Clock className="h-4 w-4 text-blue-600" />
-                        <span className="text-muted-foreground">Last Modified:</span>
+                        <span className="text-muted-foreground">
+                          Last Modified:
+                        </span>
                         <span className="font-mono text-xs">
                           Ledger #{data.ledgerSeq}
                         </span>
@@ -198,7 +208,7 @@ export default function ContractDetailPage() {
             </Card>
 
             {/* Contract Interaction Form */}
-            <div className="md:col-span-2 min-w-0">
+            <div className="min-w-0 md:col-span-2">
               <ContractCallForm contractId={contractId} />
             </div>
           </div>

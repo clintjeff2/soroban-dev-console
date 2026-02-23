@@ -69,8 +69,8 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
-      <SidebarHeader className="flex flex-col py-4 gap-4">
-        <span className="font-bold text-lg truncate w-full px-2">
+      <SidebarHeader className="flex flex-col gap-4 py-4">
+        <span className="w-full truncate px-2 text-lg font-bold">
           DevConsole
         </span>
         <WorkspaceSwitcher />

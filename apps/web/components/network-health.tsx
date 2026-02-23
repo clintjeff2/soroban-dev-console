@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useNetworkStore } from '@/store/useNetworkStore';
-import { SorobanRpc } from '@stellar/stellar-sdk';
+import { useEffect, useState } from "react";
+import { useNetworkStore } from "@/store/useNetworkStore";
+import { rpc as SorobanRpc } from "@stellar/stellar-sdk";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@devconsole/ui';
-import { cn } from '@devconsole/ui';
+} from "@devconsole/ui";
+import { cn } from "@devconsole/ui";
 
 export function NetworkHealth() {
   const { getActiveNetworkConfig, health, setHealth } = useNetworkStore();
@@ -29,7 +29,7 @@ export function NetworkHealth() {
         // In a real implementation, you might fetch protocol via server.getNetwork()
         // Here we simulate protocol 21 for demonstration
         setHealth({
-          status: latency > 1000 ? 'degraded' : 'healthy',
+          status: latency > 1000 ? "degraded" : "healthy",
           latestLedger: latestLedger.sequence,
           protocolVersion: 21,
           latencyMs: latency,
@@ -37,7 +37,7 @@ export function NetworkHealth() {
         });
       } catch (e) {
         setHealth({
-          status: 'offline',
+          status: "offline",
           latestLedger: 0,
           protocolVersion: 0,
           latencyMs: 0,
@@ -55,28 +55,28 @@ export function NetworkHealth() {
   if (!health) return null;
 
   const statusColors = {
-    healthy: 'bg-green-500',
-    degraded: 'bg-yellow-500',
-    offline: 'bg-red-500',
+    healthy: "bg-green-500",
+    degraded: "bg-yellow-500",
+    offline: "bg-red-500",
   };
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-muted cursor-help transition-colors">
+          <div className="flex cursor-help items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-muted">
             <div
               className={cn(
-                'h-2 w-2 rounded-full animate-pulse',
+                "h-2 w-2 animate-pulse rounded-full",
                 statusColors[health.status],
               )}
             />
-            <span className="text-xs font-mono text-muted-foreground hidden lg:inline">
+            <span className="hidden font-mono text-xs text-muted-foreground lg:inline">
               {health.latencyMs}ms
             </span>
           </div>
         </TooltipTrigger>
-        <TooltipContent side="bottom" className="text-xs space-y-1">
+        <TooltipContent side="bottom" className="space-y-1 text-xs">
           <p className="font-bold uppercase">{health.status}</p>
           <p>Ledger: {health.latestLedger}</p>
           <p>Protocol: {health.protocolVersion}</p>

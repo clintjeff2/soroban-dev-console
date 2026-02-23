@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Contract,
   TransactionBuilder,
   TimeoutInfinite,
   rpc as SorobanRpc,
-} from '@stellar/stellar-sdk';
+} from "@stellar/stellar-sdk";
 import {
   Play,
   Send,
@@ -16,33 +16,37 @@ import {
   Terminal,
   Save,
   Bookmark,
-} from 'lucide-react';
-import { useWallet } from '@/store/useWallet';
-import { useNetworkStore } from '@/store/useNetworkStore';
-import { useSavedCallsStore, SavedCall } from '@/store/useSavedCallsStore';
-import { ArgType, ContractArg, convertToScVal } from '@devconsole/soroban-utils';
-import { signTransaction } from '@stellar/freighter-api';
-import { SavedCallsSheet } from './saved-calls-sheet';
-import { AbiInputField } from './abi-input-field';
-import { useAbiStore } from '@/store/useAbiStore';
-import { useEffect } from 'react';
-import { Button } from '@devconsole/uibutton';
-import { Input } from '@devconsole/uiinput';
+} from "lucide-react";
+import { useWallet } from "@/store/useWallet";
+import { useNetworkStore } from "@/store/useNetworkStore";
+import { useSavedCallsStore, SavedCall } from "@/store/useSavedCallsStore";
+import {
+  ArgType,
+  ContractArg,
+  convertToScVal,
+} from "@devconsole/soroban-utils";
+import { signTransaction } from "@stellar/freighter-api";
+import { SavedCallsSheet } from "./saved-calls-sheet";
+import { AbiInputField } from "./abi-input-field";
+import { useAbiStore } from "@/store/useAbiStore";
+import { useEffect } from "react";
+import { Button } from "@devconsole/uibutton";
+import { Input } from "@devconsole/uiinput";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from '@devconsole/uicard';
+} from "@devconsole/uicard";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@devconsole/uiselect';
-import { Label } from '@devconsole/uilabel';
+} from "@devconsole/uiselect";
+import { Label } from "@devconsole/uilabel";
 import {
   Dialog,
   DialogContent,
@@ -50,8 +54,8 @@ import {
   DialogTitle,
   DialogFooter,
   DialogTrigger,
-} from '@devconsole/uidialog';
-import { toast } from 'sonner';
+} from "@devconsole/uidialog";
+import { toast } from "sonner";
 
 interface ContractCallFormProps {
   contractId: string;
@@ -62,44 +66,54 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
   const { isConnected, address } = useWallet();
   const { getActiveNetworkConfig } = useNetworkStore();
 
-  const [fnName, setFnName] = useState('');
+  const [fnName, setFnName] = useState("");
   const [args, setArgs] = useState<ContractArg[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const { saveCall } = useSavedCallsStore();
   const [isSaveOpen, setIsSaveOpen] = useState(false);
-  const [saveName, setSaveName] = useState('');
+  const [saveName, setSaveName] = useState("");
   const { getSpec, setSpec } = useAbiStore();
   const spec = getSpec(contractId);
 
   useEffect(() => {
-    if (contractId === "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC" && !spec) {
+    if (
+      contractId ===
+        "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC" &&
+      !spec
+    ) {
       setSpec(contractId, {
         rawSpec: "",
-        functions: ["balance", "decimals", "name", "symbol", "transfer", "mint", "burn"]
+        functions: [
+          "balance",
+          "decimals",
+          "name",
+          "symbol",
+          "transfer",
+          "mint",
+          "burn",
+        ],
       });
     }
   }, [contractId, spec, setSpec]);
 
   const handleFnChange = (name: string) => {
     setFnName(name);
-    if (name === 'transfer') {
+    if (name === "transfer") {
       setArgs([
-        { id: genId(), name: 'from', type: 'address', value: '' },
-        { id: genId(), name: 'to', type: 'address', value: '' },
-        { id: genId(), name: 'amount', type: 'i128', value: '' }
+        { id: genId(), name: "from", type: "address", value: "" },
+        { id: genId(), name: "to", type: "address", value: "" },
+        { id: genId(), name: "amount", type: "i128", value: "" },
       ]);
-    } else if (name === 'balance') {
-      setArgs([
-        { id: genId(), name: 'id', type: 'address', value: '' }
-      ]);
+    } else if (name === "balance") {
+      setArgs([{ id: genId(), name: "id", type: "address", value: "" }]);
     } else {
       setArgs([]);
     }
   };
 
   const addArg = () => {
-    setArgs([...args, { id: genId(), type: 'symbol', value: '' }]);
+    setArgs([...args, { id: genId(), type: "symbol", value: "" }]);
   };
 
   const removeArg = (id: string) => {
@@ -122,19 +136,20 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
 
       const operation = contract.call(fnName, ...scArgs);
 
-      const source = address || 'GBZXN7PIRZGNMHGA7MUUUFFAUYVSF74BWXME4R37P2N6F5N4AUM5546F';
+      const source =
+        address || "GBZXN7PIRZGNMHGA7MUUUFFAUYVSF74BWXME4R37P2N6F5N4AUM5546F";
 
       const account = await server.getAccount(source).catch(() => null);
 
-      const sequence = account ? account.sequenceNumber() : '0';
+      const sequence = account ? account.sequenceNumber() : "0";
 
       const tx = new TransactionBuilder(
         {
           accountId: () => source,
           sequenceNumber: () => sequence,
-          incrementSequenceNumber: () => { },
+          incrementSequenceNumber: () => {},
         },
-        { fee: '100', networkPassphrase: network.networkPassphrase },
+        { fee: "100", networkPassphrase: network.networkPassphrase },
       )
         .addOperation(operation)
         .setTimeout(TimeoutInfinite)
@@ -146,8 +161,8 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
         setResult(`Simulation Success! Result XDR available.`);
         toast.success(`Simulation Success!`);
       } else {
-        setResult(`Simulation Failed: ${sim.error || 'Unknown error'}`);
-        toast.error(`Simulation Failed: ${sim.error || 'Unknown error'}`);
+        setResult(`Simulation Failed: ${sim.error || "Unknown error"}`);
+        toast.error(`Simulation Failed: ${sim.error || "Unknown error"}`);
       }
     } catch (e: any) {
       console.error(e);
@@ -160,7 +175,7 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
 
   const handleSend = async () => {
     if (!isConnected || !address) {
-      toast.error('Connect wallet to send transactions');
+      toast.error("Connect wallet to send transactions");
       return;
     }
 
@@ -177,7 +192,7 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
       const sourceAccount = await server.getAccount(address);
 
       const tx = new TransactionBuilder(sourceAccount, {
-        fee: '100',
+        fee: "100",
         networkPassphrase: network.networkPassphrase,
       })
         .addOperation(contract.call(fnName, ...scArgs))
@@ -202,12 +217,12 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
         ),
       );
 
-      if (sendRes.status !== 'PENDING') {
+      if (sendRes.status !== "PENDING") {
         throw new Error(`Submission failed: ${sendRes.status}`);
       }
 
       setResult(`Transaction Submitted! Hash: ${sendRes.hash}`);
-      toast.success('Transaction sent to network');
+      toast.success("Transaction sent to network");
     } catch (e: any) {
       console.error(e);
       setResult(`Submission Error: ${e.message}`);
@@ -229,8 +244,8 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
     });
 
     setIsSaveOpen(false);
-    setSaveName('');
-    toast.success('Interaction saved!');
+    setSaveName("");
+    toast.success("Interaction saved!");
   };
 
   const handleLoad = (call: SavedCall) => {
@@ -258,7 +273,9 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
               </SelectTrigger>
               <SelectContent>
                 {spec.functions.map((f) => (
-                  <SelectItem key={f} value={f}>{f}</SelectItem>
+                  <SelectItem key={f} value={f}>
+                    {f}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -314,7 +331,7 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
               <div className="w-[120px]">
                 <Select
                   value={arg.type}
-                  onValueChange={(v: ArgType) => updateArg(arg.id, 'type', v)}
+                  onValueChange={(v: ArgType) => updateArg(arg.id, "type", v)}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -332,7 +349,7 @@ export function ContractCallForm({ contractId }: ContractCallFormProps) {
               </div>
               <AbiInputField
                 arg={arg}
-                onChange={(id, val) => updateArg(id, 'value', val)}
+                onChange={(id, val) => updateArg(id, "value", val)}
               />
               <Button
                 size="icon"

@@ -67,12 +67,9 @@ export default function WasmRegistryPage() {
       const functions = await parseWasmMetadata(Buffer.from(arrayBuffer));
       setPreviewFunctions(functions);
 
-      if (!wasmName) setWasmName(selected.name.replace('.wasm', ''));
+      if (!wasmName) setWasmName(selected.name.replace(".wasm", ""));
     }
   };
-
-
-
 
   const handleInstall = async () => {
     if (!file || !address || !isConnected) return;
@@ -188,7 +185,7 @@ export default function WasmRegistryPage() {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-8">
+    <div className="container mx-auto space-y-8 p-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">WASM Registry</h1>
         <p className="text-muted-foreground">
@@ -196,8 +193,8 @@ export default function WasmRegistryPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-1 h-fit">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <Card className="h-fit lg:col-span-1">
           <CardHeader>
             <CardTitle>Install New Code</CardTitle>
             <CardDescription>
@@ -225,9 +222,9 @@ export default function WasmRegistryPage() {
               disabled={!file || !isConnected || isUploading}
             >
               {isUploading ? (
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                <UploadCloud className="h-4 w-4 mr-2" />
+                <UploadCloud className="mr-2 h-4 w-4" />
               )}
               Install WASM
             </Button>
@@ -252,7 +249,7 @@ export default function WasmRegistryPage() {
                   <TableRow>
                     <TableCell
                       colSpan={3}
-                      className="text-center h-24 text-muted-foreground"
+                      className="h-24 text-center text-muted-foreground"
                     >
                       No WASM code uploaded yet.
                     </TableCell>
@@ -280,7 +277,7 @@ export default function WasmRegistryPage() {
                             {deployingHash === entry.hash ? (
                               <Loader2 className="h-3 w-3 animate-spin" />
                             ) : (
-                              <Play className="h-3 w-3 mr-1" />
+                              <Play className="mr-1 h-3 w-3" />
                             )}
                             Deploy
                           </Button>
@@ -310,8 +307,10 @@ export default function WasmRegistryPage() {
             </Table>
             {/* WASM Preview Card */}
             {file && (
-              <div className="bg-muted/50 space-y-2 rounded-md border p-3">
-                <Label className="text-[10px] font-bold uppercase">WASM Preview</Label>
+              <div className="space-y-2 rounded-md border bg-muted/50 p-3">
+                <Label className="text-[10px] font-bold uppercase">
+                  WASM Preview
+                </Label>
                 <div className="flex flex-wrap gap-1">
                   {previewFunctions.map((fn) => (
                     <Badge key={fn} variant="secondary" className="text-[10px]">

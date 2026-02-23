@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useNetworkStore } from '@/store/useNetworkStore';
+import { useState, useEffect } from "react";
+import { useNetworkStore } from "@/store/useNetworkStore";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@devconsole/ui';
-import { Button } from '@devconsole/ui';
-import { Skeleton } from '@devconsole/ui';
-import { ChevronDown, AlertTriangle, Wifi, Settings } from 'lucide-react';
-import Link from 'next/link';
+} from "@devconsole/ui";
+import { Button } from "@devconsole/ui";
+import { Skeleton } from "@devconsole/ui";
+import { ChevronDown, AlertTriangle, Wifi, Settings } from "lucide-react";
+import Link from "next/link";
 
 export function NetworkSwitcher() {
   const { currentNetwork, setNetwork, getAllNetworks } = useNetworkStore();
@@ -23,7 +23,8 @@ export function NetworkSwitcher() {
   }, []);
 
   const allNetworks = getAllNetworks();
-  const activeNet = allNetworks.find(n => n.id === currentNetwork) || allNetworks[0];
+  const activeNet =
+    allNetworks.find((n) => n.id === currentNetwork) || allNetworks[0];
 
   const handleSwitch = (id: string) => {
     setNetwork(id);
@@ -31,12 +32,16 @@ export function NetworkSwitcher() {
   };
 
   const getNetworkColor = (id: string) => {
-    if (id.includes('custom')) return 'bg-blue-500';
+    if (id.includes("custom")) return "bg-blue-500";
     switch (id) {
-      case 'mainnet': return 'bg-green-500';
-      case 'testnet': return 'bg-orange-500';
-      case 'futurenet': return 'bg-purple-500';
-      default: return 'bg-gray-500';
+      case "mainnet":
+        return "bg-green-500";
+      case "testnet":
+        return "bg-orange-500";
+      case "futurenet":
+        return "bg-purple-500";
+      default:
+        return "bg-gray-500";
     }
   };
 
@@ -47,10 +52,15 @@ export function NetworkSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="gap-2 min-w-[140px] justify-between">
+        <Button
+          variant="outline"
+          className="min-w-[140px] justify-between gap-2"
+        >
           <div className="flex items-center gap-2">
-            <div className={`h-2 w-2 rounded-full ${getNetworkColor(activeNet.id)}`} />
-            <span className="font-medium hidden sm:inline-block truncate max-w-[100px]">
+            <div
+              className={`h-2 w-2 rounded-full ${getNetworkColor(activeNet.id)}`}
+            />
+            <span className="hidden max-w-[100px] truncate font-medium sm:inline-block">
               {activeNet.name}
             </span>
           </div>
@@ -62,12 +72,14 @@ export function NetworkSwitcher() {
           <DropdownMenuItem
             key={network.id}
             onClick={() => handleSwitch(network.id)}
-            className="gap-2 cursor-pointer"
+            className="cursor-pointer gap-2"
           >
-            <div className={`h-2 w-2 rounded-full ${getNetworkColor(network.id)}`} />
-            <span className="truncate max-w-[150px]">{network.name}</span>
+            <div
+              className={`h-2 w-2 rounded-full ${getNetworkColor(network.id)}`}
+            />
+            <span className="max-w-[150px] truncate">{network.name}</span>
             {currentNetwork === network.id && (
-              <Wifi className="h-3 w-3 ml-auto opacity-50" />
+              <Wifi className="ml-auto h-3 w-3 opacity-50" />
             )}
           </DropdownMenuItem>
         ))}
@@ -75,7 +87,10 @@ export function NetworkSwitcher() {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <Link href="/settings" className="cursor-pointer gap-2 flex items-center w-full">
+          <Link
+            href="/settings"
+            className="flex w-full cursor-pointer items-center gap-2"
+          >
             <Settings className="h-3 w-3" />
             Manage Networks
           </Link>

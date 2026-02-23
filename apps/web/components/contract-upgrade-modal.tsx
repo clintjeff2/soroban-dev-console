@@ -83,7 +83,7 @@ export function ContractUpgradeModal({
         {
           accountId: () => source,
           sequenceNumber: () => "0",
-          incrementSequenceNumber: () => { },
+          incrementSequenceNumber: () => {},
         },
         { fee: "100", networkPassphrase: network.networkPassphrase },
       )
@@ -164,7 +164,7 @@ export function ContractUpgradeModal({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="gap-2 border-orange-200 hover:bg-orange-50 dark:border-orange-900 dark:hover:bg-orange-900/20 text-orange-600 dark:text-orange-400"
+          className="gap-2 border-orange-200 text-orange-600 hover:bg-orange-50 dark:border-orange-900 dark:text-orange-400 dark:hover:bg-orange-900/20"
         >
           <Upload className="h-4 w-4" />
           Upgrade
@@ -221,12 +221,12 @@ export function ContractUpgradeModal({
           )}
 
           {status === "ready" && simDetails && (
-            <div className="rounded-md bg-green-50 dark:bg-green-900/20 p-3 border border-green-200 dark:border-green-800">
-              <div className="flex items-center gap-2 text-green-700 dark:text-green-400 font-semibold text-sm mb-2">
+            <div className="rounded-md border border-green-200 bg-green-50 p-3 dark:border-green-800 dark:bg-green-900/20">
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-green-700 dark:text-green-400">
                 <CheckCircle2 className="h-4 w-4" />
                 Ready to Upgrade
               </div>
-              <div className="text-xs text-muted-foreground space-y-1">
+              <div className="space-y-1 text-xs text-muted-foreground">
                 <p>
                   CPU Cost: {parseInt(simDetails.cpu).toLocaleString()}{" "}
                   instructions

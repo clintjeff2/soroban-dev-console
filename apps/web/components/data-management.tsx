@@ -124,17 +124,17 @@ export function DataManagement() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row">
           {/* Export Button */}
           <Button
             onClick={handleExport}
             variant="outline"
-            className="flex-1 gap-2 h-20 sm:h-auto py-4"
+            className="h-20 flex-1 gap-2 py-4 sm:h-auto"
           >
             <Download className="h-5 w-5" />
             <div className="text-left">
               <div className="font-semibold">Export Backup</div>
-              <div className="text-xs text-muted-foreground font-normal">
+              <div className="text-xs font-normal text-muted-foreground">
                 Download .json file
               </div>
             </div>
@@ -153,7 +153,7 @@ export function DataManagement() {
             <label htmlFor="import-file">
               <Button
                 variant="outline"
-                className="w-full gap-2 h-20 sm:h-full py-4 cursor-pointer"
+                className="h-20 w-full cursor-pointer gap-2 py-4 sm:h-full"
                 asChild
                 disabled={isImporting}
               >
@@ -165,7 +165,7 @@ export function DataManagement() {
                   )}
                   <div className="text-left">
                     <div className="font-semibold">Import Backup</div>
-                    <div className="text-xs text-muted-foreground font-normal">
+                    <div className="text-xs font-normal text-muted-foreground">
                       Restore from .json file
                     </div>
                   </div>
@@ -175,8 +175,8 @@ export function DataManagement() {
           </div>
         </div>
 
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-md flex items-start gap-3 text-sm text-yellow-800 dark:text-yellow-200">
-          <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
+        <div className="flex items-start gap-3 rounded-md bg-yellow-50 p-3 text-sm text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-200">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>
             <strong>Warning:</strong> Importing data will{" "}
             <strong>overwrite</strong> your current contracts, saved calls, and

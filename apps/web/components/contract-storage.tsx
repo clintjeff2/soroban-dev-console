@@ -6,7 +6,6 @@ import {
   xdr,
   Address,
   scValToNative,
-
 } from "@stellar/stellar-sdk";
 import { useNetworkStore } from "@/store/useNetworkStore";
 import { Button } from "@devconsole/ui";
@@ -212,7 +211,7 @@ export function ContractStorage({ contractId }: ContractStorageProps) {
               onChange={(e) => setNewKeyValue(e.target.value)}
             />
             <Button onClick={handleAddKey} disabled={!newKeyValue}>
-              <Plus className="h-4 w-4 mr-2" /> Add
+              <Plus className="mr-2 h-4 w-4" /> Add
             </Button>
           </div>
         </CardContent>
@@ -220,7 +219,7 @@ export function ContractStorage({ contractId }: ContractStorageProps) {
 
       {/* Results Table */}
       <Card>
-        <CardHeader className="py-4 flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-row items-center justify-between py-4">
           <div className="flex items-center gap-2">
             <Database className="h-5 w-5 text-blue-500" />
             <span className="font-semibold">Current State</span>
@@ -232,7 +231,7 @@ export function ContractStorage({ contractId }: ContractStorageProps) {
             disabled={loading || entries.length === 0}
           >
             <RefreshCw
-              className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`}
+              className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`}
             />
             Refresh
           </Button>
@@ -264,16 +263,16 @@ export function ContractStorage({ contractId }: ContractStorageProps) {
                     <TableCell className="font-mono text-xs text-muted-foreground">
                       {entry.keyType}
                     </TableCell>
-                    <TableCell className="font-medium font-mono text-xs break-all">
+                    <TableCell className="break-all font-mono text-xs font-medium">
                       {entry.keyValue}
                     </TableCell>
                     <TableCell>
                       {entry.found ? (
-                        <code className="bg-muted px-2 py-1 rounded text-xs font-mono break-all block max-w-[300px] overflow-hidden text-ellipsis">
+                        <code className="block max-w-[300px] overflow-hidden text-ellipsis break-all rounded bg-muted px-2 py-1 font-mono text-xs">
                           {entry.decodedValue}
                         </code>
                       ) : (
-                        <span className="text-muted-foreground text-xs italic">
+                        <span className="text-xs italic text-muted-foreground">
                           Not Found / Null
                         </span>
                       )}

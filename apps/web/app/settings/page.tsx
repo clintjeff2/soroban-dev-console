@@ -1,43 +1,67 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useNetworkStore } from '@/store/useNetworkStore';
-import { rpc as SorobanRpc } from '@stellar/stellar-sdk';
-import { Button } from '@devconsole/ui';
-import { Input } from '@devconsole/ui';
-import { Label } from '@devconsole/ui';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@devconsole/ui';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@devconsole/ui';
-import { Trash2, Plus, Wifi, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
-import { DataManagement } from '@/components/data-management';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { useNetworkStore } from "@/store/useNetworkStore";
+import { rpc as SorobanRpc } from "@stellar/stellar-sdk";
+import { Button } from "@devconsole/ui";
+import { Input } from "@devconsole/ui";
+import { Label } from "@devconsole/ui";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@devconsole/ui";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@devconsole/ui";
+import {
+  Trash2,
+  Plus,
+  Wifi,
+  Loader2,
+  AlertCircle,
+  CheckCircle2,
+} from "lucide-react";
+import { DataManagement } from "@/components/data-management";
+import { toast } from "sonner";
 
 export default function SettingsPage() {
-  const { customNetworks, addCustomNetwork, removeCustomNetwork } = useNetworkStore();
+  const { customNetworks, addCustomNetwork, removeCustomNetwork } =
+    useNetworkStore();
 
   const [formData, setFormData] = useState({
-    name: '',
-    rpcUrl: '',
-    passphrase: 'Test SDF Network ; September 2015',
+    name: "",
+    rpcUrl: "",
+    passphrase: "Test SDF Network ; September 2015",
   });
   const [isTesting, setIsTesting] = useState(false);
-  const [testStatus, setTestStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [testStatus, setTestStatus] = useState<"idle" | "success" | "error">(
+    "idle",
+  );
 
   const handleTestConnection = async () => {
     if (!formData.rpcUrl) return;
     setIsTesting(true);
-    setTestStatus('idle');
+    setTestStatus("idle");
 
     try {
       const server = new SorobanRpc.Server(formData.rpcUrl);
       const health = await server.getHealth();
-      if (health.status !== 'healthy') throw new Error('Network reported unhealthy');
-      setTestStatus('success');
-      toast.success('Connection Successful!');
+      if (health.status !== "healthy")
+        throw new Error("Network reported unhealthy");
+      setTestStatus("success");
+      toast.success("Connection Successful!");
     } catch (e) {
       console.error(e);
-      setTestStatus('error');
-      toast.error('Could not connect to RPC URL');
+      setTestStatus("error");
+      toast.error("Could not connect to RPC URL");
     } finally {
       setIsTesting(false);
     }
@@ -45,12 +69,12 @@ export default function SettingsPage() {
 
   const handleAdd = () => {
     if (!formData.name || !formData.rpcUrl || !formData.passphrase) {
-      toast.error('Please fill all fields');
+      toast.error("Please fill all fields");
       return;
     }
 
-    if (testStatus !== 'success') {
-      toast.warning('We recommend testing the connection first');
+    if (testStatus !== "success") {
+      toast.warning("We recommend testing the connection first");
     }
 
     const newId = `custom-${Date.now()}`;
@@ -61,25 +85,28 @@ export default function SettingsPage() {
       networkPassphrase: formData.passphrase,
     });
 
-    setFormData({ name: '', rpcUrl: '', passphrase: '' });
-    setTestStatus('idle');
-    toast.success('Network added!');
+    setFormData({ name: "", rpcUrl: "", passphrase: "" });
+    setTestStatus("idle");
+    toast.success("Network added!");
   };
 
   return (
-    <div className="container p-6 max-w-4xl space-y-8">
+    <div className="container max-w-4xl space-y-8 p-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-        <p className="text-muted-foreground mt-1">Manage your custom RPC connections and configurations.</p>
+        <p className="mt-1 text-muted-foreground">
+          Manage your custom RPC connections and configurations.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Form Section */}
         <Card>
           <CardHeader>
             <CardTitle>Add Custom Network</CardTitle>
-            <CardDescription>Connect to a private node or QuickNode instance.</CardDescription>
+            <CardDescription>
+              Connect to a private node or QuickNode instance.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
@@ -87,7 +114,9 @@ export default function SettingsPage() {
               <Input
                 placeholder="e.g. My Private Node"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
               />
             </div>
 
@@ -97,7 +126,9 @@ export default function SettingsPage() {
                 <Input
                   placeholder="https://..."
                   value={formData.rpcUrl}
-                  onChange={(e) => setFormData({ ...formData, rpcUrl: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, rpcUrl: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -106,29 +137,42 @@ export default function SettingsPage() {
               <Label>Network Passphrase</Label>
               <Input
                 value={formData.passphrase}
-                onChange={(e) => setFormData({ ...formData, passphrase: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, passphrase: e.target.value })
+                }
               />
             </div>
 
-            <div className="pt-2 flex gap-3">
-              <Button variant="outline" onClick={handleTestConnection} disabled={isTesting || !formData.rpcUrl} className="flex-1">
-                {isTesting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Wifi className="h-4 w-4 mr-2" />}
+            <div className="flex gap-3 pt-2">
+              <Button
+                variant="outline"
+                onClick={handleTestConnection}
+                disabled={isTesting || !formData.rpcUrl}
+                className="flex-1"
+              >
+                {isTesting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <Wifi className="mr-2 h-4 w-4" />
+                )}
                 Test Connection
               </Button>
               <Button onClick={handleAdd} className="flex-1">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 Add Network
               </Button>
             </div>
 
-            {testStatus === 'success' && (
-              <div className="text-sm text-green-600 flex items-center gap-2 mt-2">
-                <CheckCircle2 className="h-4 w-4" /> Endpoint is reachable and healthy.
+            {testStatus === "success" && (
+              <div className="mt-2 flex items-center gap-2 text-sm text-green-600">
+                <CheckCircle2 className="h-4 w-4" /> Endpoint is reachable and
+                healthy.
               </div>
             )}
-            {testStatus === 'error' && (
-              <div className="text-sm text-red-500 flex items-center gap-2 mt-2">
-                <AlertCircle className="h-4 w-4" /> Connection failed. Check CORS or URL.
+            {testStatus === "error" && (
+              <div className="mt-2 flex items-center gap-2 text-sm text-red-500">
+                <AlertCircle className="h-4 w-4" /> Connection failed. Check
+                CORS or URL.
               </div>
             )}
           </CardContent>
@@ -141,7 +185,7 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent>
             {customNetworks.length === 0 ? (
-              <div className="text-center py-10 text-muted-foreground text-sm border border-dashed rounded-md">
+              <div className="rounded-md border border-dashed py-10 text-center text-sm text-muted-foreground">
                 No custom networks added.
               </div>
             ) : (
@@ -157,8 +201,10 @@ export default function SettingsPage() {
                   <TableBody>
                     {customNetworks.map((net) => (
                       <TableRow key={net.id}>
-                        <TableCell className="font-medium">{net.name}</TableCell>
-                        <TableCell className="text-xs text-muted-foreground max-w-[150px] truncate">
+                        <TableCell className="font-medium">
+                          {net.name}
+                        </TableCell>
+                        <TableCell className="max-w-[150px] truncate text-xs text-muted-foreground">
                           {net.rpcUrl}
                         </TableCell>
                         <TableCell>
@@ -182,7 +228,7 @@ export default function SettingsPage() {
       </div>
 
       <div className="max-w-2xl">
-        <h2 className="text-xl font-semibold mb-4">Application Data</h2>
+        <h2 className="mb-4 text-xl font-semibold">Application Data</h2>
         <DataManagement />
       </div>
     </div>
