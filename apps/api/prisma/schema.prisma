@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Workspace {
+  id                String             @id @default(cuid())
+  name              String
+  createdAt         DateTime           @default(now()) @map("created_at")
+  savedContracts    SavedContract[]
+  savedInteractions SavedInteraction[]
+
+  @@map("workspaces")
+}
+
+model SavedContract {
+  id          String    @id @default(cuid())
+  workspaceId String    @map("workspace_id")
+  contractId  String    @map("contract_id")
+  network     String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([contractId, network])
+  @@map("saved_contracts")
+}
+
+model SavedInteraction {
+  id            String    @id @default(cuid())
+  workspaceId   String    @map("workspace_id")
+  functionName  String    @map("function_name")
+  argumentsJson Json      @map("arguments_json")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  workspace     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([functionName])
+  @@map("saved_interactions")
+}
